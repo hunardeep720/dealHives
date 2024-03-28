@@ -75,7 +75,7 @@ function Navbar() {
           </ul>
         </div>
         <div className={open? ('sm:hidden relative top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black/70 text-center ease-in duration-300 z-[18]'):('sm:hidden relative top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black/70 text-center ease-in duration-300 z-[18]')}>
-          <ul className="flex justify-start bg-black/70 text-white h-screen flex-col">
+          <ul className="flex justify-start text-white h-screen flex-col">
             <div className="w-full flex justify-end">
                 
               <AiOutlineClose onClick={handleOpen} className="mr-8 my-3" size={25} />
