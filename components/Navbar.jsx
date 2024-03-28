@@ -25,14 +25,14 @@ function Navbar() {
               className="p-1 border-black rounded-md w-full m-2"
             ></input>
           </div>
-          <div className="m-2 pl-7 pt-1 col-span-1 flex justify-center">
+          <div className="m-2 pl-7 pt-3 col-span-1 flex justify-center">
             <Link href="/Account">
-              <button>Account</button>
+              <button className="font-bold">Account</button>
             </Link>
           </div>
-          <div className="pt-3 col-span-1 flex justify-evenly">
+          <div className="pt-5 col-span-1 flex justify-evenly">
             <Link href="/Cart">
-              <button>Cart</button>
+              <button className="font-bold">Cart</button>
             </Link>
           </div>
         </div>
@@ -47,7 +47,7 @@ function Navbar() {
           <input
             type="search"
             placeholder="Search products"
-            className="p-1 mx-5 border-black rounded-md w-4/5 "
+            className="p-2 mx-5 border-black rounded-md w-4/5 "
           />
         </div>
       </div>
@@ -74,7 +74,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <div className={open? ('sm:hidden relative top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black text-center ease-in duration-300 z-[18]'):('sm:hidden relative top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black text-center ease-in duration-300 z-[18]')}>
+        <div className={open? ('sm:hidden relative top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black/70 text-center ease-in duration-300 z-[18]'):('sm:hidden relative top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black/70 text-center ease-in duration-300 z-[18]')}>
           <ul className="flex justify-start bg-black/70 text-white h-screen flex-col">
             <div className="w-full flex justify-end">
                 
