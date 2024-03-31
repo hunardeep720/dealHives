@@ -15,7 +15,7 @@ function Navbar() {
         <div className="grid grid-cols-3 justify-center sm:grid-cols-6">
           <div className="my-3 pl-6 col-span-1">
             <Link href="/">
-              <h1 className="font-extrabold text-3xl">XYZ</h1>
+              <h1 className="font-extrabold text-4xl">XYZ</h1>
             </Link>
           </div>
           <div className="hidden sm:block col-span-3">
@@ -74,13 +74,13 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <div className={open? ('sm:hidden relative top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black/70 text-center ease-in duration-300 z-[18]'):('sm:hidden relative top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-44 h-screen bg-black/70 text-center ease-in duration-300 z-[18]')}>
+        <div className={open? ('sm:hidden relative top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-36 h-screen bg-black/70 text-center ease-in duration-300 z-[18]'):('sm:hidden relative top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-32 h-screen bg-black/70 text-center ease-in duration-300 z-[18]')}>
           <ul className="flex justify-start text-white h-screen flex-col">
             <div className="w-full flex justify-end">
                 
-              <AiOutlineClose onClick={handleOpen} className="mr-8 my-3" size={25} />
+              <AiOutlineClose onClick={handleOpen} className="mr-7 my-3" size={25} />
             </div>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
+            <li className="my-4 font-bold text-2xl hover:text-slate-400">
               <Link href="/Electronics">Electronics</Link>
             </li>
             <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
