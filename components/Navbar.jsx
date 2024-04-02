@@ -27,7 +27,7 @@ function Navbar() {
           </div>
           <div className="m-2 pl-7 pt-3 col-span-1 flex justify-center">
             <Link href="/Account">
-              <button className="font-bold">Account</button>
+              <button className="font-bold">Sign in</button>
             </Link>
           </div>
           <div className="pt-5 col-span-1 flex justify-evenly">
@@ -36,69 +36,101 @@ function Navbar() {
             </Link>
           </div>
         </div>
-        <div className="flex justify-end pb-3 sm:hidden">
-          {open ? null : (
-            <AiOutlineMenu
-              className="mx-2"
-              size={24}
-              onClick={handleOpen}
+        <div className="relative">
+          <div className="flex justify-end pb-3 sm:hidden">
+            {open ? null : (
+              <AiOutlineMenu className="mx-2" size={24} onClick={handleOpen} />
+            )}
+            <input
+              type="search"
+              placeholder="Search products"
+              className="p-2 mx-5 border-black rounded-md w-4/5 "
             />
-          )}
-          <input
-            type="search"
-            placeholder="Search products"
-            className="p-2 mx-5 border-black rounded-md w-4/5 "
-          />
-        </div>
-      </div>
-      <div>
-        <div>
-          <ul className="hidden sm:flex justify-evenly bg-slate-500 ">
-            <li className="p-2">
-              <Link href="/Electronics">Electronics</Link>
-            </li>
-            <li className="p-2">
-              <Link href="/Clothing">Clothing</Link>
-            </li>
-            <li className="p-2">
-              <Link href="/Furniture">Furniture</Link>
-            </li>
-            <li className="p-2">
-              <Link href="/Books">Books</Link>
-            </li>
-            <li className="p-2">
-              <Link href="/Toys">Toys</Link>
-            </li>
-            <li className="p-2">
-              <Link href="/Sports">Sports</Link>
-            </li>
-          </ul>
-        </div>
-        <div className={open? ('sm:hidden relative top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-36 h-screen bg-black/70 text-center ease-in duration-300 z-[18]'):('sm:hidden relative top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-32 h-screen bg-black/70 text-center ease-in duration-300 z-[18]')}>
-          <ul className="flex justify-start text-white h-screen flex-col">
-            <div className="w-full flex justify-end">
-                
-              <AiOutlineClose onClick={handleOpen} className="mr-7 my-3" size={25} />
+          </div>
+          <div style={{ paddingTop: -2 }}>
+            {open ? (
+              <div>
+                <ul className="flex justify-evenly bg-transparent/60">
+                  <li className="p-2">
+                    <Link href="/Electronics">Electronics</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Clothing">Clothing</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Furniture">Furniture</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Books">Books</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Toys">Toys</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Sports">Sports</Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div>
+                <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll">
+                  <li className="p-2">
+                    <Link href="/Electronics">Electronics</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Clothing">Clothing</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Furniture">Furniture</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Books">Books</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Toys">Toys</Link>
+                  </li>
+                  <li className="p-2">
+                    <Link href="/Sports">Sports</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
+            <div
+              className={
+                open
+                  ? "sm:hidden pt-3 absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-36 h-screen bg-black/80 text-center ease-in duration-300 z-[18]"
+                  : "sm:hidden absolute pt-3 top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-32 h-screen bg-black/80 text-center ease-in duration-300 z-[18]"
+              }
+            >
+              <ul className="flex justify-start text-white h-screen flex-col">
+                <div className="w-full flex justify-end">
+                  <AiOutlineClose
+                    onClick={handleOpen}
+                    className="mr-7 my-3"
+                    size={25}
+                  />
+                </div>
+                <li className="my-4 font-bold text-2xl hover:text-slate-400">
+                  <Link href="/Electronics">Electronics</Link>
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
+                  <Link href="/Clothing">Clothing</Link>
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
+                  <Link href="/Furniture">Furniture</Link>
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
+                  <Link href="/Books">Books</Link>
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
+                  <Link href="/Toys">Toys</Link>
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
+                  <Link href="/Sports">Sports</Link>
+                </li>
+              </ul>
             </div>
-            <li className="my-4 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Electronics">Electronics</Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Clothing">Clothing</Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Furniture">Furniture</Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Books">Books</Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Toys">Toys</Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Sports">Sports</Link>
-            </li>
-          </ul>
+          </div>
         </div>
       </div>
     </div>
