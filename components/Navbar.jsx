@@ -78,7 +78,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-row">
         <div
           className={
             open
@@ -86,6 +85,9 @@ function Navbar() {
               : "sm:hidden absolute pt-3 top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-32 h-screen bg-black/80 text-center ease-in duration-300 z-[18]"
           }
         >
+        <div className="w-full h-10 flex justify-end my-5 ml-48">
+          <AiOutlineClose onClick={handleOpen} size={30}  />
+        </div>
           <ul className="flex justify-start text-white h-screen flex-col">
             <li className="my-4 font-bold text-2xl hover:text-slate-400">
               <Link href="/Electronics">Electronics</Link>
@@ -107,11 +109,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <div className={open ? 'z-[18]' : "hidden"}>
-          <AiOutlineClose onClick={handleOpen} className="mr-7 " size={25} />
-        </div>
       </div>
-    </div>
   );
 }
 
