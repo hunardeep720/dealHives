@@ -10,8 +10,8 @@ function Navbar() {
     setOpen(!open);
   };
   return (
-    <div className="max-w-[1240px] m-auto fixed top-0 bottom-0 left-0 right-0">
-      <div className="bg-slate-600 ">
+    <div className="max-w-full m-auto fixed top-0 bottom-0 left-0 right-0">
+      <div className={open? ("bg-black/80 opacity-80"):("bg-slate-500")}>
         <div className="grid grid-cols-3 justify-center sm:grid-cols-6">
           <div className="my-3 pl-6 col-span-1">
             <Link href="/">
@@ -36,7 +36,6 @@ function Navbar() {
             </Link>
           </div>
         </div>
-        <div className="relative">
           <div className="flex justify-end pb-3 sm:hidden">
             {open ? null : (
               <AiOutlineMenu className="mx-2" size={24} onClick={handleOpen} />
@@ -47,31 +46,6 @@ function Navbar() {
               className="p-2 mx-5 border-black rounded-md w-4/5 "
             />
           </div>
-          <div style={{ paddingTop: -2 }}>
-            {open ? (
-              <div>
-                <ul className="flex justify-evenly bg-transparent/60">
-                  <li className="p-2">
-                    <Link href="/Electronics">Electronics</Link>
-                  </li>
-                  <li className="p-2">
-                    <Link href="/Clothing">Clothing</Link>
-                  </li>
-                  <li className="p-2">
-                    <Link href="/Furniture">Furniture</Link>
-                  </li>
-                  <li className="p-2">
-                    <Link href="/Books">Books</Link>
-                  </li>
-                  <li className="p-2">
-                    <Link href="/Toys">Toys</Link>
-                  </li>
-                  <li className="p-2">
-                    <Link href="/Sports">Sports</Link>
-                  </li>
-                </ul>
-              </div>
-            ) : (
               <div>
                 <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll">
                   <li className="p-2">
@@ -93,8 +67,6 @@ function Navbar() {
                     <Link href="/Sports">Sports</Link>
                   </li>
                 </ul>
-              </div>
-            )}
             <div
               className={
                 open
@@ -133,7 +105,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
