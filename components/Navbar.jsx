@@ -17,7 +17,7 @@ function Navbar() {
             ? "z-[10] w-full h-screen bg-transparent opacity-40 ease-in duration-500"
             : "ease-in duration-500"
         }
-        onClick={handleOpen}
+        onClick={open ? handleOpen : null}
       >
         <div className=" z-[10] bg-slate-600">
           <div className="grid grid-cols-3 justify-center sm:grid-cols-6">
@@ -56,22 +56,22 @@ function Navbar() {
           </div>
           <div>
             <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll">
-              <li className="p-2">
+              <li className="p-2 mx-2">
                 <Link href="/Electronics">Electronics</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2 mx-2">
                 <Link href="/Clothing">Clothing</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2 mx-2">
                 <Link href="/Furniture">Furniture</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2 mx-2">
                 <Link href="/Books">Books</Link>
               </li>
               <li className="p-2">
                 <Link href="/Toys">Toys</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2 mx-2">
                 <Link href="/Sports">Sports</Link>
               </li>
             </ul>
@@ -85,10 +85,18 @@ function Navbar() {
               : "sm:hidden absolute pt-3 top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-32 h-screen bg-black/80 text-center ease-in duration-300 z-[18]"
           }
         >
-        <div className="w-full h-10 flex justify-end my-5 ml-48">
+            <div className="my-4 mb-10 font-bold text-3xl hover:text-slate-400 text-white">
+              <Link href="/Account">
+                Sign in
+              </Link>
+            </div>
+            <div className="relative w-full grid grid-cols-2 mb-10">
+            <hr className="absolute border-b-4 w-full flex justify-start" />
+        <div className="absolute w-full h-10 ml-24 mb-10 flex justify-end">
           <AiOutlineClose onClick={handleOpen} size={30}  />
         </div>
-          <ul className="flex justify-start text-white h-screen flex-col">
+            </div>
+          <ul className="flex justify-start text-white h-screen flex-col my-3">
             <li className="my-4 font-bold text-2xl hover:text-slate-400">
               <Link href="/Electronics">Electronics</Link>
             </li>
