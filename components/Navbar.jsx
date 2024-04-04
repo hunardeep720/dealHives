@@ -1,20 +1,21 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-
+export const gate = false;
 function Navbar() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(!open);
   };
   return (
-    <div className="fixed max-w-full m-auto top-0 bottom-0 left-0 right-0">
+    <div className="w-full flex justify-center fixed left-0 top-0 ">
+    <div className="z-10 max-w-screen-2xl w-full">
       <div
         className={
           open
-            ? "z-[10] w-full h-screen bg-transparent opacity-40 ease-in duration-500"
+            ? "z-[10] bg-transparent opacity-40 ease-in duration-500"
             : "ease-in duration-500"
         }
         onClick={open ? handleOpen : null}
@@ -117,6 +118,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
+      </div>
       </div>
   );
 }
