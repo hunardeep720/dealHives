@@ -1,11 +1,12 @@
 "use client";
+import { GlobalStateContext } from "@/app/GlobalStateVariable";
 import Link from "next/link";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 export const gate = false;
 function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useContext(GlobalStateContext);
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -57,22 +58,22 @@ function Navbar() {
           </div>
           <div>
             <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll">
-              <li className="p-2 mx-2">
+              <li className="p-2 mx-2 px-2">
                 <Link href="/Electronics">Electronics</Link>
               </li>
-              <li className="p-2 mx-2">
+              <li className="p-2 mx-2 px-2">
                 <Link href="/Clothing">Clothing</Link>
               </li>
-              <li className="p-2 mx-2">
+              <li className="p-2 mx-2 px-2">
                 <Link href="/Furniture">Furniture</Link>
               </li>
-              <li className="p-2 mx-2">
+              <li className="p-2 mx-2 px-2">
                 <Link href="/Books">Books</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2 px-2">
                 <Link href="/Toys">Toys</Link>
               </li>
-              <li className="p-2 mx-2">
+              <li className="p-2 mx-2 px-2">
                 <Link href="/Sports">Sports</Link>
               </li>
             </ul>

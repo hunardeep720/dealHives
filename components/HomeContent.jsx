@@ -1,12 +1,20 @@
+"use client";
 import React from "react";
+import { GlobalStateContext } from "@/app/GlobalStateVariable";
+import { useContext } from "react";
 import Space from "./Space";
 import image from "./HomeImage";
 import CategoryImage from "./CategoryImage";
 function HomeContent() {
+  const [open, setOpen] = useContext(GlobalStateContext);
   return (
     <div className="mx-auto w-auto mb-12 relative">
       <Space />
-      <div className="relative grid gap-4 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6">
+      <div className={
+          open
+            ? "relative grid gap-4 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 z-[10] bg-transparent opacity-40 ease-in duration-500"
+            : "relative grid gap-4 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 ease-in duration-500"
+        }>
       <div>
       <CategoryImage sourceImg={image[0].image} />
      </div>
