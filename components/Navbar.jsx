@@ -10,7 +10,7 @@ function Navbar() {
     setOpen(!open);
   };
   return (
-    <div className="w-full flex justify-center fixed left-0 top-0 ">
+    <div className="w-full flex justify-center fixed left-0 top-0 z-[20]">
     <div className="z-10 max-w-screen-2xl w-full">
       <div
         className={
