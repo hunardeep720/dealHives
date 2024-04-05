@@ -68,7 +68,7 @@ function HomeContent() {
             <p className="font-bold flex justify-center">Sneakers</p>
           </div>
         </div>
-        <div className="grid col-span-2 gap-4">
+        <div className="grid col-span-2 gap-4 xl:col-start-3">
           <p className="grid col-span-2 justify-center font-extrabold text-2xl py-6">
             Decorate Home
           </p>
@@ -87,7 +87,9 @@ function HomeContent() {
             </div>
           </div>
         </div>
-        <p className="grid col-span-2 justify-center sm:col-span-4 xl:col-span-6 font-extrabold text-2xl py-8">
+        <div className="grid col-span-2 gap-4 xl:col-start-2">
+
+        <p className="grid col-span-2 justify-center font-extrabold text-2xl py-8">
           Explore Categories
         </p>
         <div>
@@ -105,6 +107,7 @@ function HomeContent() {
         <div>
           <CategoryImage sourceImg={image[11].image} />
           <p className="font-bold flex justify-center">Books</p>
+        </div>
         </div>
       </div>
     </div>
