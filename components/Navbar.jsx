@@ -57,7 +57,7 @@ function Navbar() {
             />
           </div>
           <div>
-            <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll pl-3">
+            <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll ml-3 pl-3 sm:ml-auto">
               <li className="p-2 mx-2 px-2">
                 <Link href="/Electronics">Electronics</Link>
               </li>
