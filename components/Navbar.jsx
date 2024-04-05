@@ -58,10 +58,10 @@ function Navbar() {
           </div>
           <div>
             <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll">
-              <li className="p-2 mx-2 px-2">
+              <li className="py-2">
                 <Link href="/Electronics">Electronics</Link>
               </li>
-              <li className="p-2 mx-2 px-2">
+              <li className="p-2 pl-4 mx-2 px-2">
                 <Link href="/Clothing">Clothing</Link>
               </li>
               <li className="p-2 mx-2 px-2">
