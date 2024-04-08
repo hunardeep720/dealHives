@@ -11,13 +11,13 @@ function Navbar() {
     setOpen(!open);
   };
   return (
-    <div className="w-full flex justify-center fixed left-0 top-0 z-[20]">
+    <div className="w-full flex justify-center fixed left-0 top-0 z-[10]">
     <div className="z-10 max-w-screen-2xl w-full">
       <div
         className={
           open
-            ? "z-[10] bg-transparent opacity-40 ease-in duration-500"
-            : "ease-in duration-500"
+            ? "z-[20] bg-transparent opacity-40 ease-in duration-500"
+            : "ease-in duration-500 z-[10]"
         }
         onClick={open ? handleOpen : null}
       >
@@ -88,7 +88,7 @@ function Navbar() {
           }
         >
             <div className="my-4 mb-10 font-bold text-3xl hover:text-slate-400 text-white">
-              <Link href="/Account">
+              <Link href="/Account" onClick={handleOpen}>
                 Sign in
               </Link>
             </div>

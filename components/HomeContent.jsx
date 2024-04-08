@@ -13,7 +13,7 @@ function HomeContent() {
       <div
         className={
           open
-            ? "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 z-[10] bg-transparent opacity-40 ease-in duration-500"
+            ? "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 z-[1] bg-transparent opacity-40 ease-in duration-500"
             : "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 ease-in duration-500"
         }
       >
