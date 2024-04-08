@@ -18,7 +18,7 @@ function HomeContent() {
         }
       >
         <div className="grid col-span-2 gap-4">
-          <p className="grid col-span-2 justify-center font-extrabold text-2xl pb-2">
+          <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
             Exclusive Offers
           </p>
           <div>
@@ -68,11 +68,11 @@ function HomeContent() {
             <p className="font-bold flex justify-center">Sneakers</p>
           </div>
         </div>
-        <div className="grid col-span-2 gap-4 xl:col-start-3">
-          <p className="grid col-span-2 justify-center font-extrabold text-2xl py-6">
+        <div className="grid col-span-2 gap-4 xl:grid-col-6">
+          <p className="grid col-span-2 xl:col-span-6 justify-center font-extrabold text-2xl py-6">
             Decorate Home
           </p>
-          <div>
+          <div className="xl:col-start-3">
             <CategoryImage sourceImg={image[7].image} />
             <div className="flex justify-between text-black">
               <p className="font-bold">Furniture</p>
@@ -87,27 +87,26 @@ function HomeContent() {
             </div>
           </div>
         </div>
-        <div className="grid col-span-2 gap-4 xl:col-start-2">
-
-        <p className="grid col-span-2 justify-center font-extrabold text-2xl py-8">
-          Explore Categories
-        </p>
-        <div>
-          <CategoryImage sourceImg={image[3].image} />
-          <p className="font-bold flex justify-center">Headphones</p>
-        </div>
-        <div>
-          <CategoryImage sourceImg={image[9].image} />
-          <p className="font-bold flex justify-center">Sport</p>
-        </div>
-        <div>
-          <CategoryImage sourceImg={image[10].image} />
-          <p className="font-bold flex justify-center">Kids</p>
-        </div>
-        <div>
-          <CategoryImage sourceImg={image[11].image} />
-          <p className="font-bold flex justify-center">Books</p>
-        </div>
+        <div className="grid gap-4 col-span-2 sm:col-span-4">
+          <p className="grid col-span-2  sm:col-span-4 justify-center font-extrabold text-2xl py-8">
+            Explore Categories
+          </p>
+          <div>
+            <CategoryImage sourceImg={image[3].image} />
+            <p className="font-bold flex justify-center">Headphones</p>
+          </div>
+          <div>
+            <CategoryImage sourceImg={image[9].image} />
+            <p className="font-bold flex justify-center">Sport</p>
+          </div>
+          <div>
+            <CategoryImage sourceImg={image[10].image} />
+            <p className="font-bold flex justify-center">Kids</p>
+          </div>
+          <div>
+            <CategoryImage sourceImg={image[11].image} />
+            <p className="font-bold flex justify-center">Books</p>
+          </div>
         </div>
       </div>
     </div>
