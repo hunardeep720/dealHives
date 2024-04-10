@@ -90,7 +90,7 @@ function Navbar() {
         >
             <div className="my-4 mb-10 font-bold text-3xl hover:text-slate-400 text-white">
               <Link href="/Account" onClick={handleOpen}>
-                Sign in
+              {user? 'Sign Out': 'Sign In'}
               </Link>
             </div>
             <div className="relative w-full grid grid-cols-2 mb-10">
