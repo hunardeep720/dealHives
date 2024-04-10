@@ -1,12 +1,13 @@
 "use client";
 import { GlobalStateContext } from "@/app/GlobalStateVariable";
 import Link from "next/link";
+import { useUserAuth } from "@/utils/auth-context";
 import React from "react";
 import { useContext } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-export const gate = false;
 function Navbar() {
   const [open, setOpen] = useContext(GlobalStateContext);
+  const { user} = useUserAuth();
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -37,7 +38,7 @@ function Navbar() {
             </div>
             <div className="m-2 pl-7 pt-3 col-span-1 flex justify-center">
               <Link href="/Account">
-                <button className="font-bold">Sign in</button>
+                <button className="font-bold">{user? 'Sign Out': 'Sign In'}</button>
               </Link>
             </div>
             <div className="pt-5 col-span-1 flex justify-evenly">

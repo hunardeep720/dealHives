@@ -1,7 +1,11 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { GlobalStateProvider } from "./GlobalStateVariable";
+import {
+  GlobalStateProvider,
+  UserGlobalProvider,
+  UserInformationGlobalProvider,
+} from "./GlobalStateVariable";
 import { AuthContextProvider } from "@/utils/auth-context";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,8 +30,12 @@ export default function RootLayout({ children }) {
         <main>
           <AuthContextProvider>
             <GlobalStateProvider>
-              <Navbar />
-              {children}
+              <UserGlobalProvider>
+                <UserInformationGlobalProvider>
+                  <Navbar />
+                  {children}
+                </UserInformationGlobalProvider>
+              </UserGlobalProvider>
             </GlobalStateProvider>
           </AuthContextProvider>
         </main>
