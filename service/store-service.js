@@ -1,9 +1,9 @@
-import { db } from "../_utils/firebase";
+import { db } from "@/utils/firebase";
 import { collection, getDocs, addDoc, query, deleteDoc, doc } from "firebase/firestore";
 
 export async function getItems(userId) {
     const q = query(
-        collection(db, "users",userId, "items"),
+        collection(db, "users",userId, "userInformation"),
       );
       const querySnapshot = await getDocs(q);
   const userItems = querySnapshot.docs.map((doc) => {
@@ -11,9 +11,13 @@ export async function getItems(userId) {
   });
   return userItems;
 }
-  export async function addItem(user, information) {
-    const itemsCollectionRef = collection(db, "users", user, "userInformation");
+  export async function addItem(userId, information) {
+    const itemsCollectionRef = collection(db, "users", userId, "userInformation");
     return addDoc(itemsCollectionRef, information);
+  }
+  export async function addAddress(userId, address) {
+    const itemsCollectionRef = collection(db, "users", userId, "address");
+    return addDoc(itemsCollectionRef, address);
   }
   export async function deleteItem(userId, itemId) {
     const docRef = doc(db,'users', userId, 'items', itemId);

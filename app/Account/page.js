@@ -6,9 +6,11 @@ import Link from "next/link";
 import { GlobalStateContext, UserGlobalContext } from "../GlobalStateVariable";
 import { useContext, useState } from "react";
 import { auth } from "@/utils/firebase";
+import { useUserAuth } from "@/utils/auth-context";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Information from "@/components/Information";
 function page() {
+  const { user} = useUserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isInclude, setIsInclude] = useState(false);
@@ -20,7 +22,6 @@ function page() {
     setPassword(e.target.value);
   };
   const [open, setOpen] = useContext(GlobalStateContext);
-  const [user, setUser] = useContext(UserGlobalContext);
   const checkUser = async () => {
     try {
       // Await the sign-in operation to get the result
@@ -55,7 +56,7 @@ function page() {
   return (
     <div>
       <Space />
-      {isInclude ? <Information /> : (
+      {user ? <Information /> : (
 
       <div className="max-w-screen-2xl mx-auto w-auto p-4 flex items-center justify-center">
         <div

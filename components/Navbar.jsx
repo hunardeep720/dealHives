@@ -3,14 +3,29 @@ import { GlobalStateContext } from "@/app/GlobalStateVariable";
 import Link from "next/link";
 import { useUserAuth } from "@/utils/auth-context";
 import React from "react";
-import { useContext } from "react";
+import { getItems } from "@/service/store-service";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 function Navbar() {
   const [open, setOpen] = useContext(GlobalStateContext);
+  const [name, setName] = useState("Sign In");
   const { user} = useUserAuth();
   const handleOpen = () => {
     setOpen(!open);
   };
+  const loadItems = async () => {
+    if (user) {
+      const userItems = await getItems(user.uid);
+      setName('Hi '+userItems.map(item => item.name));
+    }
+    else{
+      console.log("no user")
+      setName("Sign In");
+    }
+  };
+  useEffect(() => {
+    loadItems();
+  }, [user]);
   return (
     <div className="w-full flex justify-center fixed left-0 top-0 z-[10]">
     <div className="z-10 max-w-screen-2xl w-full">
@@ -38,7 +53,7 @@ function Navbar() {
             </div>
             <div className="m-2 pl-7 pt-3 col-span-1 flex justify-center">
               <Link href="/Account">
-                <button className="font-bold">{user? 'Sign Out': 'Sign In'}</button>
+                <button className="font-bold">{name}</button>
               </Link>
             </div>
             <div className="pt-5 col-span-1 flex justify-evenly">
@@ -90,7 +105,7 @@ function Navbar() {
         >
             <div className="my-4 mb-10 font-bold text-3xl hover:text-slate-400 text-white">
               <Link href="/Account" onClick={handleOpen}>
-              {user? 'Sign Out': 'Sign In'}
+              {name}
               </Link>
             </div>
             <div className="relative w-full grid grid-cols-2 mb-10">

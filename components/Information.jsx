@@ -1,8 +1,13 @@
 import React from 'react'
+import { useUserAuth } from '@/utils/auth-context';
 
 function Information() {
+  const { firebaseSignOut } = useUserAuth();
+  async function handleSignOut() {
+    await firebaseSignOut();
+  }
   return (
-    <div>Information</div>
+    <div><button onClick={handleSignOut}>signout</button></div>
   )
 }
 
