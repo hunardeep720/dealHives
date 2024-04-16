@@ -2,7 +2,7 @@ import React from 'react'
 
 function Space() {
   return (
-    <div style={{height:200}} />
+    <div style={{height:150}} />
   )
 }
 

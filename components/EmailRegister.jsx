@@ -1,5 +1,4 @@
 "use client";
-import { UserInformationGlobalContext } from "@/app/GlobalStateVariable";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useContext, useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -20,9 +19,6 @@ function EmailRegister() {
   const [passwordError, setPasswordError] = useState("");
   const [eye, setEye] = useState(true);
   const [samePasswordError, setSamePasswordError] = useState("");
-  const [information, setInformation] = useContext(
-    UserInformationGlobalContext
-  );
   const handleSubmit = async (id) => {
     const userInformation = { name: name, lastName: lastName };
     await addItem(id, userInformation);
@@ -71,13 +67,6 @@ function EmailRegister() {
         } catch (error) {
           console.error("Error registering user:", error);
         }
-
-        setInformation([
-          {
-            firstName: name,
-            LastName: lastName,
-          },
-        ]);
         console.log(user);
         setSamePasswordError("");
         setPasswordError("");

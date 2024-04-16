@@ -1,16 +1,23 @@
 "use client";
-import React from "react";
-import { GlobalStateContext } from "@/app/GlobalStateVariable";
-import { useContext } from "react";
+import React, { useState } from "react";
+import { GlobalStateContext, ProductStateContext, PageStateContext } from "@/app/GlobalStateVariable";
+import { useContext, useEffect } from "react";
 import Space from "./Space";
 import image from "./HomeImage";
 import CategoryImage from "./CategoryImage";
+import SearchProducts from "./SearchProducts";
 function HomeContent() {
   const [open, setOpen] = useContext(GlobalStateContext);
+  const [product, setProduct] = useContext(ProductStateContext);
+  const [page, setPage] = useContext(PageStateContext);
+  // useEffect(() => {
+  //   setPage(!page)
+  // },[product]);
   return (
     <div className="mx-auto w-auto mb-12 relative">
       <Space />
-      <div
+      {page? (<SearchProducts  />):(
+        <div
         className={
           open
             ? "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 z-[1] bg-transparent opacity-40 ease-in duration-500"
@@ -109,6 +116,8 @@ function HomeContent() {
           </div>
         </div>
       </div>
+      )}
+      
     </div>
   );
 }

@@ -2,9 +2,6 @@
 import React, { createContext, useState } from "react";
 
 export const GlobalStateContext = createContext();
-export const UserGlobalContext = createContext();
-export const UserInformationGlobalContext = createContext();
-
 export const GlobalStateProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -13,20 +10,23 @@ export const GlobalStateProvider = ({ children }) => {
     </GlobalStateContext.Provider>
   );
 };
-export const UserGlobalProvider = ({ children }) => {
-  const [user, setUser] = useState([]);
+
+export const ProductStateContext = createContext();
+export const ProductStateProvider = ({children}) => {
+  const [product, setProduct] = useState('');
   return (
-    <UserGlobalContext.Provider value={[user, setUser]}>
+    <ProductStateContext.Provider value={[product, setProduct]}>
       {children}
-    </UserGlobalContext.Provider>
-  );
+    </ProductStateContext.Provider>
+  )
 };
-export const UserInformationGlobalProvider = ({children}) => {
-    const [information, setInformation] = useState('');
-    return(
-        <UserInformationGlobalContext.Provider value={[information, setInformation]}
-        >
-            {children}
-        </UserInformationGlobalContext.Provider>
-    )
-}
+
+export const PageStateContext = createContext();
+export const PageStateProvider = ({children}) => {
+  const [page, setPage] = useState(false);
+  return (
+    <PageStateContext.Provider value={[page, setPage]}>
+      {children}
+    </PageStateContext.Provider>
+  )
+};

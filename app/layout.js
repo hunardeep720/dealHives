@@ -3,15 +3,15 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import {
   GlobalStateProvider,
-  UserGlobalProvider,
-  UserInformationGlobalProvider,
+  ProductStateProvider,
+  PageStateProvider,
 } from "./GlobalStateVariable";
 import { AuthContextProvider } from "@/utils/auth-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "XYZ",
+  title: "XYZ.com",
   description: "Create a website for online store",
 };
 
@@ -30,12 +30,12 @@ export default function RootLayout({ children }) {
         <main>
           <AuthContextProvider>
             <GlobalStateProvider>
-              <UserGlobalProvider>
-                <UserInformationGlobalProvider>
+              <ProductStateProvider>
+                <PageStateProvider>
                   <Navbar />
                   {children}
-                </UserInformationGlobalProvider>
-              </UserGlobalProvider>
+                </PageStateProvider>
+              </ProductStateProvider>
             </GlobalStateProvider>
           </AuthContextProvider>
         </main>
