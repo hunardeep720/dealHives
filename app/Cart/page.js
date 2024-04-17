@@ -33,7 +33,7 @@ function Page() {
         <ul>
           {items.map((item, index) => (
             <li key={index} className="w-full flex justify-evenly">
-              <div className="w-1/2 h-1/2 flex m-7">
+              <div className="w-1/2 h-1/2 flex flex-col sm:flex-row m-7">
                 {item.sourceImage && (
                   <Image
                     height={500}

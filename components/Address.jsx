@@ -45,7 +45,7 @@ function Address() {
     setPincode("");
   };
   return (
-    <div className="max-w-screen-2xl mx-auto grid justify-center item-center text-center">
+    <div className="max-w-screen-2xl mx-auto grid justify-center item-center text-center items-center h-96 my-44">
       <p className="mb-8 font-extrabold text-2xl">Delivery Address</p>
       <form onSubmit={SubmitHandler} className="grid grid-cols-2 gap-6 mx-2">
         <input
