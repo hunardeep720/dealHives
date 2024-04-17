@@ -7,6 +7,7 @@ import {
   PageStateProvider,
 } from "./GlobalStateVariable";
 import { AuthContextProvider } from "@/utils/auth-context";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
                 <PageStateProvider>
                   <Navbar />
                   {children}
+                  <Footer />
                 </PageStateProvider>
               </ProductStateProvider>
             </GlobalStateProvider>

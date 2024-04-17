@@ -36,7 +36,7 @@ function EmailRegister() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setLogin(false);
+        console.log("Error registering user:", errorMessage);
       });
   };
 

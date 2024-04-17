@@ -1,32 +1,32 @@
 "use client";
-import Space from "@/components/Space";
-import React, { useEffect, useState, useContext } from "react";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import React, {useContext, useEffect, useState} from 'react'
 import Image from "next/image";
 import {
   ProductStateContext,
   GlobalStateContext,
-} from "../GlobalStateVariable";
+} from "@/app/GlobalStateVariable";
 import ProductDescription from "@/components/ProductDescription";
+import Space from './Space';
 
-function Page() {
-  const [open, setOpen] = useContext(GlobalStateContext);
+function SimilarProducts() {
+  const [productsList, setProductsList] = useState([]);
   const [sourceImage, setSourceImage] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [rating, setRating] = useState("");
   const [productSelect, setProductSelect] = useState(false);
-  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [product, setProduct] = useContext(ProductStateContext);
-  const [productsList, setProductsList] = useState(null); // Initialize products as an empty array
-  const [loading, setLoading] = useState(true); // Initialize loading state as true
-  const url = `https://amazon-product-data6.p.rapidapi.com/product-by-text?keyword=${product}&page=${page}&country=US&sort_by=feature`;
+  const url = `https://amazon-product-data6.p.rapidapi.com/product-by-text?keyword=${product}&country=US&sort_by=feature`;
   const options = {
     method: "Get",
     headers: {
       "X-RapidAPI-Key": "d70428a133msh0ee3a41e66d048fp1ed1cfjsnf242448b75f2",
       "X-RapidAPI-Host": "amazon-product-data6.p.rapidapi.com",
     },
+  };
+  const truncateString = (str, maxLength) => {
+    return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
   };
   const fetchData = async () => {
     try {
@@ -40,25 +40,23 @@ function Page() {
       console.error("error fetching data details: ", error);
     }
   };
-  const truncateString = (str, maxLength) => {
-    return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
+  const sortByBestSeller = (a, b) => {
+    if (a.is_best_seller && !b.is_best_seller) {
+      return -1; // 'a' comes before 'b'
+    } else if (!a.is_best_seller && b.is_best_seller) {
+      return 1; // 'b' comes before 'a'
+    } else {
+      return 0; // No change in order
+    }
   };
-  useEffect(() => {
-    fetchData();
-  }, [page]);
   useEffect(() => {
     fetchData();
   }, [product]);
-  const PagePrev = () => {
-    if (page >= 2) {
-      setPage(page - 1);
+  useEffect(() => {
+    if (productsList.length > 0){
+      productsList.sort(sortByBestSeller);
     }
-  };
-  const PageNext = () => {
-    if (page <= 9) {
-      setPage(page + 1);
-    }
-  };
+  },[productsList]);
   const HandleProductSelect = (title, stars, price, image) => {
     setSourceImage(image);
     setDescription(title);
@@ -71,23 +69,18 @@ function Page() {
     setProductSelect(true);
   };
   return (
-    <div className="max-w-screen-2xl mx-auto p-6">
-      <div
-        className={
-          open
-            ? "z-[20] bg-transparent opacity-40 ease-in duration-500"
-            : "ease-in duration-500"
-        }
-      >
-        <Space />
-        {productSelect ? (
-          <ProductDescription description={description} sourceImage={sourceImage} price={price} rating={rating} />
-        ) : (
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
-            <p className="ease-in duration-700 col-span-full font-extrabold mb-5 text-xl">
-              {" "}
-              The given result is shown on the basis of search "{product}".
-            </p>
+    <div className='text-center'>
+      {productSelect ? (<div className='top-0 relative'>
+        <div className='fixed'>
+          <Space />
+        </div>
+        
+        <ProductDescription className="absolute" description={description} sourceImage={sourceImage} price={price} rating={rating} />
+      </div>
+          
+        ) : (<div>
+        <p className='text-3xl font-bold'>Similar Products</p>
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
             {loading ? (
               <div className="text-center col-span-full flex justify-center items-center">
                 <p className="text-xl font-bold">Loading...</p>
@@ -95,7 +88,9 @@ function Page() {
             ) : productsList.length > 0 ? (
               productsList.map((product) => (
                 <div key={product.asin} className="ease-in duration-200 col-span-1 text-center">
-                  <Image
+                  {product.is_best_seller ? (
+                    <div>
+                   <Image
                     src={product.image}
                     alt="product"
                     width={500}
@@ -117,7 +112,9 @@ function Page() {
                     {truncateString(product.title, 20)}
                   </p>
 
-                  <p className="text-lg">{product.price}</p>
+                  <p className="text-lg">{product.price}</p> </div>
+                  ) : null}
+                  
                 </div>
               ))
             ) : (
@@ -125,24 +122,9 @@ function Page() {
                 <p className="text-xl font-bold">No products found</p>
               </div>
             )}
-            <div className="flex col-span-full justify-center text-center">
-              <FaArrowCircleLeft
-                className="cursor-pointer"
-                size={30}
-                onClick={PagePrev}
-              />
-              <p className="mx-10 font-bold text-xl">{page}</p>
-              <FaArrowCircleRight
-                className="cursor-pointer"
-                size={30}
-                onClick={PageNext}
-              />
-            </div>
-          </div>
-        )}
-      </div>
+        </div> </div>)}
     </div>
-  );
+  )
 }
 
-export default Page;
+export default SimilarProducts

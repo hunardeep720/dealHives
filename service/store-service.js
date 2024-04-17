@@ -16,8 +16,12 @@ export async function getItems(userId) {
     return addDoc(itemsCollectionRef, information);
   }
   export async function addAddress(userId, address) {
-    const itemsCollectionRef = collection(db, "users", userId, "address");
+    const itemsCollectionRef = collection(db, "users", userId, "userInformation");
     return addDoc(itemsCollectionRef, address);
+  }
+  export async function addProduct(userId, product) {
+    const itemsCollectionRef = collection(db, "users", userId, "userInformation");
+    return addDoc(itemsCollectionRef, product);
   }
   export async function deleteItem(userId, itemId) {
     const docRef = doc(db,'users', userId, 'items', itemId);
