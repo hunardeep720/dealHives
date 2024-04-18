@@ -24,7 +24,6 @@ export async function getItems(userId) {
     return addDoc(itemsCollectionRef, product);
   }
   export async function deleteItem(userId, itemId) {
-    const docRef = doc(db,'users', userId, 'items', itemId);
+    const docRef = doc(db,'users', userId, 'userInformation', itemId);
     await deleteDoc(docRef);
-    alert('Item deleted \nPlease refresh the page to see the changes')
   }

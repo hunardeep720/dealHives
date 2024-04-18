@@ -1,123 +1,153 @@
 "use client";
 import React, { useState } from "react";
-import { GlobalStateContext, ProductStateContext, PageStateContext } from "@/app/GlobalStateVariable";
-import { useContext, useEffect } from "react";
+import {
+  GlobalStateContext,
+  ProductStateContext,
+  PageStateContext,
+} from "@/app/GlobalStateVariable";
+import { useContext } from "react";
 import Space from "./Space";
 import image from "./HomeImage";
 import CategoryImage from "./CategoryImage";
 import SearchProducts from "./SearchProducts";
+import Link from "next/link";
 function HomeContent() {
   const [open, setOpen] = useContext(GlobalStateContext);
   const [product, setProduct] = useContext(ProductStateContext);
+  console.log(product);
   const [page, setPage] = useContext(PageStateContext);
-  // useEffect(() => {
-  //   setPage(!page)
-  // },[product]);
   return (
     <div className="mx-auto w-auto mb-12 relative">
       <Space />
-      {page? (<SearchProducts  />):(
+      {page ? (
+        <SearchProducts />
+      ) : (
         <div
-        className={
-          open
-            ? "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 z-[1] bg-transparent opacity-40 ease-in duration-500"
-            : "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 ease-in duration-500"
-        }
-      >
-        <div className="grid col-span-2 gap-4">
-          <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
-            Exclusive Offers
-          </p>
-          <div>
-            <CategoryImage sourceImg={image[0].image} />
-            <div className="flex justify-between text-black">
-              <p className="font-bold">Smartphones</p>
-              <p className="text-sm">25% off</p>
+          className={
+            open
+              ? "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 z-[1] bg-transparent opacity-40 ease-in duration-500"
+              : "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 ease-in duration-500"
+          }
+        >
+          <div className="grid col-span-2 gap-4">
+            <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
+              Exclusive Offers
+            </p>
+            <div>
+              <Link onClick={() => {
+                      setProduct("smartphone");
+                    }} href="/Products">
+                <CategoryImage sourceImg={image[0].image} />
+                <div className="flex justify-between text-black">
+                  <p className="font-bold hover:text-slate-500">Smartphones</p>
+                  <p className="text-sm">25% off</p>
+                </div>
+              </Link>
+            </div>
+            <div>
+              <Link onClick={setProduct("laptop")} href="/Products">
+                <CategoryImage sourceImg={image[1].image} />
+                <div className="flex justify-between text-black">
+                  <p className="font-bold hover:text-slate-500">Laptop</p>
+                  <p className="text-sm">15% off</p>
+                </div>
+              </Link>
             </div>
           </div>
-          <div>
-            <CategoryImage sourceImg={image[1].image} />
-            <div className="flex justify-between text-black">
-              <p className="font-bold">Laptop</p>
-              <p className="text-sm">15% off</p>
+          <div className="grid col-span-2 gap-4">
+            <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
+              Best Sellers
+            </p>
+            <div>
+              <Link onClick={setProduct("speaker")} href="/Products">
+                <CategoryImage sourceImg={image[2].image} />
+                <div className="flex justify-between text-black">
+                  <p className="font-bold hover:text-slate-500">Speakers</p>
+                  <p className="text-sm">starts $50</p>
+                </div>
+              </Link>
+            </div>
+            <div>
+              <Link onClick={setProduct("watch")} href="/Products">
+                <CategoryImage sourceImg={image[4].image} />
+                <div className="flex justify-between text-black">
+                  <p className="font-bold hover:text-slate-500">Smart Watch</p>
+                  <p className="text-sm">Start $200</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="grid col-span-2 gap-4">
+            <p className="grid col-span-2 justify-center font-extrabold text-2xl py-6">
+              Gifts for everyone
+            </p>
+            <div>
+              <Link onClick={()=>{setProduct("hoodie")}} href="/Products">
+                <CategoryImage sourceImg={image[5].image} />
+                <p className="font-bold flex justify-center hover:text-slate-500">Hoodie</p>
+              </Link>
+            </div>
+            <div>
+              <Link onClick={setProduct("sneaker")} href="/Products">
+                <CategoryImage sourceImg={image[6].image} />
+                <p className="font-bold flex justify-center hover:text-slate-500">Sneakers</p>
+              </Link>
+            </div>
+          </div>
+          <div className="grid col-span-2 gap-4 xl:grid-col-6">
+            <p className="grid col-span-2 xl:col-span-6 justify-center font-extrabold text-2xl py-6">
+              Decorate Home
+            </p>
+            <div className="xl:col-start-3">
+              <Link onClick={setProduct("furniture")} href="/Products">
+                <CategoryImage sourceImg={image[7].image} />
+                <div className="flex justify-between text-black">
+                  <p className="font-bold hover:text-slate-500">Furniture</p>
+                  <p className="text-sm">Great Offers</p>
+                </div>
+              </Link>
+            </div>
+            <div>
+              <Link onClick={setProduct("decoration")} href="/Products">
+                <CategoryImage sourceImg={image[8].image} />
+                <div className="flex justify-between text-black">
+                  <p className="font-bold hover:text-slate-500">Decoration</p>
+                  <p className="text-sm">More Ideas</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="grid gap-4 col-span-2 sm:col-span-4">
+            <p className="grid col-span-2  sm:col-span-4 justify-center font-extrabold text-2xl py-8">
+              Explore Categories
+            </p>
+            <div>
+              <Link onClick={setProduct("headphone")} href="/Products">
+                <CategoryImage sourceImg={image[3].image} />
+                <p className="font-bold flex justify-center hover:text-slate-500">Headphones</p>
+              </Link>
+            </div>
+            <div>
+              <Link onClick={setProduct("sport")} href="/Products">
+                <CategoryImage sourceImg={image[9].image} />
+                <p className="font-bold flex justify-center hover:text-slate-500">Sport</p>
+              </Link>
+            </div>
+            <div>
+              <Link onClick={setProduct("kids")} href="/Products">
+                <CategoryImage sourceImg={image[10].image} />
+                <p className="font-bold flex justify-center hover:text-slate-500">Kids</p>
+              </Link>
+            </div>
+            <div>
+              <Link onClick={setProduct("book")} href="/Products">
+                <CategoryImage sourceImg={image[11].image} />
+                <p className="font-bold flex justify-center hover:text-slate-500">Books</p>
+              </Link>
             </div>
           </div>
         </div>
-        <div className="grid col-span-2 gap-4">
-          <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
-            Best Sellers
-          </p>
-          <div>
-            <CategoryImage sourceImg={image[2].image} />
-            <div className="flex justify-between text-black">
-              <p className="font-bold">Speakers</p>
-              <p className="text-sm">starts $50</p>
-            </div>
-          </div>
-          <div>
-            <CategoryImage sourceImg={image[4].image} />
-            <div className="flex justify-between text-black">
-              <p className="font-bold">Smart Watch</p>
-              <p className="text-sm">Start $200</p>
-            </div>
-          </div>
-        </div>
-        <div className="grid col-span-2 gap-4">
-          <p className="grid col-span-2 justify-center font-extrabold text-2xl py-6">
-            Gifts for everyone
-          </p>
-          <div>
-            <CategoryImage sourceImg={image[5].image} />
-            <p className="font-bold flex justify-center">Hoodie</p>
-          </div>
-          <div>
-            <CategoryImage sourceImg={image[6].image} />
-            <p className="font-bold flex justify-center">Sneakers</p>
-          </div>
-        </div>
-        <div className="grid col-span-2 gap-4 xl:grid-col-6">
-          <p className="grid col-span-2 xl:col-span-6 justify-center font-extrabold text-2xl py-6">
-            Decorate Home
-          </p>
-          <div className="xl:col-start-3">
-            <CategoryImage sourceImg={image[7].image} />
-            <div className="flex justify-between text-black">
-              <p className="font-bold">Furniture</p>
-              <p className="text-sm">Great Offers</p>
-            </div>
-          </div>
-          <div>
-            <CategoryImage sourceImg={image[8].image} />
-            <div className="flex justify-between text-black">
-              <p className="font-bold">Decoration</p>
-              <p className="text-sm">More Ideas</p>
-            </div>
-          </div>
-        </div>
-        <div className="grid gap-4 col-span-2 sm:col-span-4">
-          <p className="grid col-span-2  sm:col-span-4 justify-center font-extrabold text-2xl py-8">
-            Explore Categories
-          </p>
-          <div>
-            <CategoryImage sourceImg={image[3].image} />
-            <p className="font-bold flex justify-center">Headphones</p>
-          </div>
-          <div>
-            <CategoryImage sourceImg={image[9].image} />
-            <p className="font-bold flex justify-center">Sport</p>
-          </div>
-          <div>
-            <CategoryImage sourceImg={image[10].image} />
-            <p className="font-bold flex justify-center">Kids</p>
-          </div>
-          <div>
-            <CategoryImage sourceImg={image[11].image} />
-            <p className="font-bold flex justify-center">Books</p>
-          </div>
-        </div>
-      </div>
       )}
-      
     </div>
   );
 }

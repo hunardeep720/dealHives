@@ -110,18 +110,18 @@ function Navbar() {
               )}
 
               <form className="flex items-center justify-center">
-                  <input
+              <input
                     type="search"
                     value={search}
                     placeholder="Search products"
                     className="p-1 border-black rounded-md w-full m-2"
                     onChange={(e) => {
-                      setSearch(e.target.value);
+                      setSearch(e.target.value);setNewPage(true)
                     }}
                   ></input>
                   {newPage ? (
                     <Link href="./Products" onClick={InputSearch}>
-                      <button type="submit">go</button>
+                      <button type="submit" className="text-white text-2xl font-bold">Go</button>
                     </Link>
                   ) : (
                     <Link href="./" onClick={InputSearch}>
@@ -131,7 +131,7 @@ function Navbar() {
                 </form>
             </div>
             <div>
-              <ul className="flex justify-evenly bg-slate-500 overflow-x-scroll pl-28 sm:pl-2">
+              <ul className="justify-evenly bg-slate-500 overflow-x-scroll hidden sm:pl-2 sm:flex">
                 <li className="p-2 mx-2 px-2">
                   <Link
                     onClick={() => {
@@ -145,11 +145,11 @@ function Navbar() {
                 <li className="p-2 mx-2 px-2">
                   <Link
                     onClick={() => {
-                      setProduct("cloths");
+                      setProduct("skin-care");
                     }}
                     href="./Products"
                   >
-                    Clothing
+                    Skin Care
                   </Link>
                 </li>
                 <li className="p-2 mx-2 px-2">
@@ -165,11 +165,11 @@ function Navbar() {
                 <li className="p-2 mx-2 px-2">
                   <Link
                     onClick={() => {
-                      setProduct("books");
+                      setProduct("movies");
                     }}
                     href="./Products"
                   >
-                    Books
+                    Movies
                   </Link>
                 </li>
                 <li className="p-2 px-2">
@@ -216,22 +216,70 @@ function Navbar() {
           </div>
           <ul className="flex justify-start text-white h-screen flex-col my-3">
             <li className="my-4 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Electronics">Electronics</Link>
+            <Link
+                    onClick={() => {
+                      setProduct("electronics");
+                      handleOpen();
+                    }}
+                    href="./Products"
+                  >
+                    Electronics
+                  </Link>
             </li>
             <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Clothing">Skin Care</Link>
+            <Link
+                    onClick={() => {
+                      setProduct("Skin-Care");
+                      handleOpen();
+                    }}
+                    href="./Products"
+                  >
+                    Skin Care
+                  </Link>
             </li>
             <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Furniture">Furniture</Link>
+            <Link
+                    onClick={() => {
+                      setProduct("furniture");
+                      handleOpen();
+                    }}
+                    href="./Products"
+                  >
+                    Furniture
+                  </Link>
             </li>
             <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Books">Books</Link>
+            <Link
+                    onClick={() => {
+                      setProduct("movies");
+                      handleOpen();
+                    }}
+                    href="./Products"
+                  >
+                    Movies
+                  </Link>
             </li>
             <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Toys">Toys</Link>
+            <Link
+                    onClick={() => {
+                      setProduct("kids");
+                      handleOpen();
+                    }}
+                    href="./Products"
+                  >
+                    Kids
+                  </Link>
             </li>
             <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-              <Link href="/Sports">Sports</Link>
+            <Link
+                    onClick={() => {
+                      setProduct("Sport");
+                      handleOpen();
+                    }}
+                    href="./Products"
+                  >
+                    Sports
+                  </Link>
             </li>
           </ul>
         </div>

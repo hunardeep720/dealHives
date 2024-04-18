@@ -2,7 +2,8 @@
 import { useState } from "react";
 import React from "react";
 import { addAddress } from "@/service/store-service";
-import { useUserAuth } from "@/utils/auth-context"; 
+import { useUserAuth } from "@/utils/auth-context";
+import Link from "next/link";
 
 function Address() {
   const { user } = useUserAuth();
@@ -12,6 +13,7 @@ function Address() {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("Canada");
   const [pincode, setPincode] = useState("");
+  const [done, setDone] = useState(false);
   const ChangeAdress = (e) => {
     setAddress(e.target.value);
   };
@@ -31,8 +33,16 @@ function Address() {
     setPincode(e.target.value);
   };
   const handleSubmit = async (id) => {
-    const userInformation = {mobileNumber: mobile, address: address, city: city, state: state, country: country, pincode: pincode};
+    const userInformation = {
+      mobileNumber: mobile,
+      address: address,
+      city: city,
+      state: state,
+      country: country,
+      pincode: pincode,
+    };
     await addAddress(id, userInformation);
+    setDone(true);
   };
   const SubmitHandler = (e) => {
     e.preventDefault();
@@ -98,12 +108,29 @@ function Address() {
           className="border shadow-lg p-2 placeholder:font-bold"
           required
         />
-        <button
-          type="submit"
-          className="col-span-2 p-1 text-white bg-black  hover:bg-black/30 hover:text-slate-800"
-        >
-          Submit
-        </button>
+        {done ? (
+          <div className="col-span-2 grid-cols-2">
+            <p className="col-span-1 text-blue-500 m-2">
+              Address Added Successfully
+            </p>
+
+            <Link href="./">
+              <button
+                type="submit"
+                className="col-span-1 p-1 w-full text-white bg-black  hover:bg-black/30 hover:text-slate-800"
+              >
+                Next
+              </button>
+            </Link>
+          </div>
+        ) : (
+          <button
+            type="submit"
+            className="col-span-2 p-1 text-white bg-black  hover:bg-black/30 hover:text-slate-800"
+          >
+            Submit
+          </button>
+        )}
       </form>
     </div>
   );

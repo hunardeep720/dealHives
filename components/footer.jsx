@@ -1,9 +1,12 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import React from "react";
-
+import {
+  GlobalStateContext,
+} from "@/app/GlobalStateVariable";
 function footer() {
+  const [open, setOpen] = useContext(GlobalStateContext);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const SubmitHandler = (e) => {
@@ -12,8 +15,8 @@ function footer() {
     setMessage("Thank you for subscribing!");
   };
   return (
-    <div className="max-w-screen-2xl mx-auto">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 bg-slate-600 p-4">
+    <div className="max-w-screen-2xl mx-auto bottom-0 mb-0">
+      <div className={open?"grid grid-cols-2 sm:grid-cols-4 gap-6 bg-slate-600 p-4 z-[1] bg-transparent opacity-40 ease-in duration-500":"grid grid-cols-2 sm:grid-cols-4 gap-6 bg-slate-600 p-4 ease-in duration-500"}>
         <div className="col-span-2 grid justify-center text-center">
           <p className="font-extrabold text-4xl py-3">XYZ</p>
           <p className="font-bold py-2 mb-2">Subscribe for more offers</p>
