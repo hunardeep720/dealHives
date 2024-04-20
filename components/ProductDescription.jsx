@@ -4,7 +4,6 @@ import Image from "next/image";
 import SimilarProducts from "./SimilarProducts";
 import { addProduct } from "@/service/store-service";
 import { useUserAuth } from "@/utils/auth-context";
-import Link from "next/link";
 import ProductBuy from "./ProductBuy";
 import Space from "./Space";
 // import Page as BuyProductPage from "../BuyProduct/page";
