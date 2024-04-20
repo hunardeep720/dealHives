@@ -180,7 +180,7 @@ function EmailRegister() {
               </button>
               <Link
                 href="./Account"
-                className="p-1 col-span-2 font-semibold hover:text-slate-500"
+                className="p-1 text-white bg-black  hover:bg-black/30 hover:text-slate-800"
               >
                 Already have an account?
               </Link>

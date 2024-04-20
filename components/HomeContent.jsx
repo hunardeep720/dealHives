@@ -45,7 +45,9 @@ function HomeContent() {
               </Link>
             </div>
             <div>
-              <Link onClick={setProduct("laptop")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("laptop");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[1].image} />
                 <div className="flex justify-between text-black">
                   <p className="font-bold hover:text-slate-500">Laptop</p>
@@ -59,7 +61,9 @@ function HomeContent() {
               Best Sellers
             </p>
             <div>
-              <Link onClick={setProduct("speaker")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("speaker");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[2].image} />
                 <div className="flex justify-between text-black">
                   <p className="font-bold hover:text-slate-500">Speakers</p>
@@ -68,7 +72,9 @@ function HomeContent() {
               </Link>
             </div>
             <div>
-              <Link onClick={setProduct("watch")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("smartwatch");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[4].image} />
                 <div className="flex justify-between text-black">
                   <p className="font-bold hover:text-slate-500">Smart Watch</p>
@@ -88,7 +94,9 @@ function HomeContent() {
               </Link>
             </div>
             <div>
-              <Link onClick={setProduct("sneaker")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("sneaker");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[6].image} />
                 <p className="font-bold flex justify-center hover:text-slate-500">Sneakers</p>
               </Link>
@@ -99,7 +107,9 @@ function HomeContent() {
               Decorate Home
             </p>
             <div className="xl:col-start-3">
-              <Link onClick={setProduct("furniture")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("furniture");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[7].image} />
                 <div className="flex justify-between text-black">
                   <p className="font-bold hover:text-slate-500">Furniture</p>
@@ -108,7 +118,9 @@ function HomeContent() {
               </Link>
             </div>
             <div>
-              <Link onClick={setProduct("decoration")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("decoration");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[8].image} />
                 <div className="flex justify-between text-black">
                   <p className="font-bold hover:text-slate-500">Decoration</p>
@@ -122,27 +134,35 @@ function HomeContent() {
               Explore Categories
             </p>
             <div>
-              <Link onClick={setProduct("headphone")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("headphones");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[3].image} />
                 <p className="font-bold flex justify-center hover:text-slate-500">Headphones</p>
               </Link>
             </div>
             <div>
-              <Link onClick={setProduct("sport")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("sport");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[9].image} />
                 <p className="font-bold flex justify-center hover:text-slate-500">Sport</p>
               </Link>
             </div>
             <div>
-              <Link onClick={setProduct("kids")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("kids");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[10].image} />
                 <p className="font-bold flex justify-center hover:text-slate-500">Kids</p>
               </Link>
             </div>
             <div>
-              <Link onClick={setProduct("book")} href="/Products">
+              <Link onClick={() => {
+                      setProduct("comics");
+                    }} href="/Products">
                 <CategoryImage sourceImg={image[11].image} />
-                <p className="font-bold flex justify-center hover:text-slate-500">Books</p>
+                <p className="font-bold flex justify-center hover:text-slate-500">Comics</p>
               </Link>
             </div>
           </div>

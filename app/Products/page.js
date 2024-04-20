@@ -79,10 +79,11 @@ function Page() {
             : "ease-in duration-500"
         }
       >
-        <Space />
         {productSelect ? (
           <ProductDescription description={description} sourceImage={sourceImage} price={price} rating={rating} />
         ) : (
+          <div>
+        <Space />
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
             <p className="ease-in duration-700 col-span-full font-extrabold mb-5 text-xl">
               {" "}
@@ -138,6 +139,7 @@ function Page() {
                 onClick={PageNext}
               />
             </div>
+          </div>
           </div>
         )}
       </div>

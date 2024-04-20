@@ -54,7 +54,7 @@ function page() {
   };
   const [eye, setEye] = useState(true);
   return (
-    <div>
+    <div className="bg-slate-50">
       <Space />
       {user ? <Information /> : (
 
