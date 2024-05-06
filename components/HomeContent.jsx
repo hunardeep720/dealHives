@@ -17,7 +17,7 @@ function HomeContent() {
   console.log(product);
   const [page, setPage] = useContext(PageStateContext);
   return (
-    <div className="mx-auto w-auto mb-12 relative">
+    <div className="mx-auto w-auto mb-12 px-16 bg-slate-50">
       <Space />
       {page ? (
         <SearchProducts />
@@ -29,7 +29,7 @@ function HomeContent() {
               : "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 ease-in duration-500"
           }
         >
-          <div className="grid col-span-2 gap-4">
+          <div className="grid col-span-2 gap-4 p-4 shadow-xl bg-white">
             <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
               Exclusive Offers
             </p>
@@ -49,14 +49,14 @@ function HomeContent() {
                       setProduct("laptop");
                     }} href="/Products">
                 <CategoryImage sourceImg={image[1].image} />
-                <div className="flex justify-between text-black">
+                <div className="flex justify-between text-black ">
                   <p className="font-bold hover:text-slate-500">Laptop</p>
                   <p className="text-sm">15% off</p>
                 </div>
               </Link>
             </div>
           </div>
-          <div className="grid col-span-2 gap-4">
+          <div className="grid col-span-2 gap-4 p-4 shadow-xl bg-white">
             <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
               Best Sellers
             </p>
@@ -83,7 +83,7 @@ function HomeContent() {
               </Link>
             </div>
           </div>
-          <div className="grid col-span-2 gap-4">
+          <div className="grid col-span-2 gap-4 p-4 shadow-xl bg-white">
             <p className="grid col-span-2 justify-center font-extrabold text-2xl py-6">
               Gifts for everyone
             </p>
@@ -102,7 +102,7 @@ function HomeContent() {
               </Link>
             </div>
           </div>
-          <div className="grid col-span-2 gap-4 xl:grid-col-6">
+          <div className="grid col-span-2 gap-4 xl:grid-col-6 p-4 shadow-xl bg-white">
             <p className="grid col-span-2 xl:col-span-6 justify-center font-extrabold text-2xl py-6">
               Decorate Home
             </p>
@@ -129,7 +129,7 @@ function HomeContent() {
               </Link>
             </div>
           </div>
-          <div className="grid gap-4 col-span-2 sm:col-span-4">
+          <div className="grid gap-4 col-span-2 sm:col-span-4 p-4 shadow-xl bg-white">
             <p className="grid col-span-2  sm:col-span-4 justify-center font-extrabold text-2xl py-8">
               Explore Categories
             </p>
