@@ -47,7 +47,7 @@ function Page() {
     fetchData();
   }, [page]);
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, [product]);
   const PagePrev = () => {
     if (page >= 2) {
@@ -71,7 +71,7 @@ function Page() {
     setProductSelect(true);
   };
   return (
-    <div className="max-w-screen-2xl mx-auto p-6 bg-slate-50">
+    <div className="max-w-screen-2xl mx-auto p-6">
       <div
         className={
           open
@@ -85,7 +85,7 @@ function Page() {
           <div>
         <Space />
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
-            <p className="ease-in duration-700 col-span-full font-extrabold mb-5 text-2xl">
+            <p className="ease-in duration-700 col-span-full font-extrabold mb-5 text-xl">
               {" "}
               The given result is shown on the basis of search "{product}".
             </p>
@@ -95,14 +95,7 @@ function Page() {
               </div>
             ) : productsList.length > 0 ? (
               productsList.map((product) => (
-                <div key={product.asin} onClick={() =>
-                  HandleProductSelect(
-                    product.title,
-                    product.stars,
-                    product.price,
-                    product.image
-                  )
-                } className="p-4 bg-white hover:cursor-pointer hover:text-slate-500 shadow-lg ease-in col-span-1 text-center">
+                <div key={product.asin} className="ease-in duration-200 col-span-1 text-center">
                   <Image
                     src={product.image}
                     alt="product"
@@ -112,7 +105,15 @@ function Page() {
                     className="w-48 h-48"
                   />
                   <p
-                    className="font-extrabold text-xs "
+                    onClick={() =>
+                      HandleProductSelect(
+                        product.title,
+                        product.stars,
+                        product.price,
+                        product.image
+                      )
+                    }
+                    className="font-extrabold text-xs hover:cursor-pointer hover:text-slate-500"
                   >
                     {truncateString(product.title, 20)}
                   </p>
