@@ -34,26 +34,27 @@ function ProductDescription({ description, sourceImage, price, rating }) {
       ) : (
         <div>
           <Space />
-          <div className="grid grid-cols-2 gap-6 my-8">
-            <div className="grid col-span-1 w-1/2 h-1/2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8 justify-center items-center text-center">
+            <div className="grid col-span-1 mx-auto w-1/2 bg-white p-4 shadow-lg items-center justify-center h-full">
               <Image
                 src={sourceImage}
                 alt="product"
                 width={500}
                 height={600}
-                layout="responsive"
-                className="w-48 h-48"
+                // layout="responsive"
+                objectFit="cover"
+                // className="w-48 h-48"
               />
             </div>
             <div>
               <p className="text-black font-extrabold text-xl mb-2">
                 {description}
               </p>
-              <p className="flex text-slate-500 mb-2">
+              <div className="flex text-slate-500 mb-2 text-center justify-center">
                 <p className="text-black font-bold mr-1">Rating :</p>
                 {rating}
                 <p className="text-black">/5</p>
-              </p>
+              </div>
               <p className="text-xl mb-2">{price}</p>
               <input
                 type="number"
@@ -91,7 +92,6 @@ function ProductDescription({ description, sourceImage, price, rating }) {
               </div>
             </div>
           </div>
-          <SimilarProducts />
         </div>
       )}
     </div>
