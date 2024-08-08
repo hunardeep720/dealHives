@@ -93,7 +93,7 @@ function Page() {
               <div className="text-center col-span-full flex justify-center items-center">
                 <p className="text-xl font-bold">Loading...</p>
               </div>
-            ) : productsList.length > 0 ? (
+            ) : product && productsList.length > 0 ? (
               productsList.map((product) => (
                 <div key={product.asin} className="ease-in duration-200 col-span-1 text-center">
                   <Image
