@@ -11,6 +11,12 @@ import image from "./HomeImage";
 import CategoryImage from "./CategoryImage";
 import SearchProducts from "./SearchProducts";
 import Link from "next/link";
+import { MdSportsEsports } from "react-icons/md";
+import { FaBaby } from "react-icons/fa6";
+import { GiBookshelf } from "react-icons/gi";
+import { PiTelevisionFill } from "react-icons/pi";
+import { GiWashingMachine } from "react-icons/gi";
+
 function HomeContent() {
   const [open, setOpen] = useContext(GlobalStateContext);
   const [product, setProduct] = useContext(ProductStateContext);
@@ -29,7 +35,7 @@ function HomeContent() {
               : "relative grid gap-6 grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 ease-in duration-500"
           }
         >
-          <div className="grid col-span-2 gap-4">
+          <div className="grid col-span-2 gap-4 p-2 px-5 bg-slate-100 border-2 shadow-xl">
             <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
               Exclusive Offers
             </p>
@@ -56,7 +62,7 @@ function HomeContent() {
               </Link>
             </div>
           </div>
-          <div className="grid col-span-2 gap-4">
+          <div className="grid col-span-2 gap-4 p-2 px-5 bg-slate-100 border-2">
             <p className="grid col-span-2 justify-center font-extrabold text-2xl py-5">
               Best Sellers
             </p>
@@ -83,7 +89,7 @@ function HomeContent() {
               </Link>
             </div>
           </div>
-          <div className="grid col-span-2 gap-4">
+          <div className="grid col-span-2 gap-4 p-2 px-5 bg-slate-100 border-2">
             <p className="grid col-span-2 justify-center font-extrabold text-2xl py-6">
               Gifts for everyone
             </p>
@@ -102,7 +108,7 @@ function HomeContent() {
               </Link>
             </div>
           </div>
-          <div className="grid col-span-2 gap-4 xl:grid-col-6">
+          <div className="grid col-span-2 gap-3 xl:grid-col-6  py-2 bg-slate-100 border-2">
             <p className="grid col-span-2 xl:col-span-6 justify-center font-extrabold text-2xl py-6">
               Decorate Home
             </p>
@@ -129,39 +135,47 @@ function HomeContent() {
               </Link>
             </div>
           </div>
-          <div className="grid gap-4 col-span-2 sm:col-span-4">
-            <p className="grid col-span-2  sm:col-span-4 justify-center font-extrabold text-2xl py-8">
+          <div className="grid gap-4 col-span-2 sm:col-span-full p-2 px-5 bg-slate-100 border-2">
+            <p className="grid col-span-2  sm:col-span-5 justify-center font-extrabold text-2xl py-8">
               Explore Categories
             </p>
             <div>
-              <Link onClick={() => {
+              <Link className="flex flex-col items-center" onClick={() => {
                       setProduct("headphones");
                     }} href="/Products">
-                <CategoryImage sourceImg={image[3].image} />
-                <p className="font-bold flex justify-center hover:text-slate-500">Headphones</p>
+                <GiWashingMachine size={100}/>
+                <p className="font-bold flex justify-center hover:text-slate-500">Electronics</p>
               </Link>
             </div>
             <div>
-              <Link onClick={() => {
+              <Link className="flex flex-col items-center" onClick={() => {
                       setProduct("sport");
                     }} href="/Products">
-                <CategoryImage sourceImg={image[9].image} />
+                <PiTelevisionFill size={100}/>
+                <p className="font-bold flex justify-center hover:text-slate-500">Movies</p>
+              </Link>
+            </div>
+            <div>
+              <Link className="flex flex-col items-center" onClick={() => {
+                      setProduct("sport");
+                    }} href="/Products">
+                <MdSportsEsports size={100}/>
                 <p className="font-bold flex justify-center hover:text-slate-500">Sport</p>
               </Link>
             </div>
             <div>
-              <Link onClick={() => {
+              <Link className="flex flex-col items-center" onClick={() => {
                       setProduct("kids");
                     }} href="/Products">
-                <CategoryImage sourceImg={image[10].image} />
+                <FaBaby size={100}/>
                 <p className="font-bold flex justify-center hover:text-slate-500">Kids</p>
               </Link>
             </div>
             <div>
-              <Link onClick={() => {
+              <Link className="flex flex-col items-center" onClick={() => {
                       setProduct("comics");
                     }} href="/Products">
-                <CategoryImage sourceImg={image[11].image} />
+                <GiBookshelf size={100}/>
                 <p className="font-bold flex justify-center hover:text-slate-500">Comics</p>
               </Link>
             </div>

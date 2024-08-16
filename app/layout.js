@@ -8,6 +8,7 @@ import {
 } from "./GlobalStateVariable";
 import { AuthContextProvider } from "@/utils/auth-context";
 import Footer from "@/components/footer";
+import Space from "@/components/Space";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,19 +29,21 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={inter.className}>
-        <main>
-          <AuthContextProvider>
-            <GlobalStateProvider>
-              <ProductStateProvider>
-                <PageStateProvider>
-                  <Navbar />
-                  {children}
-                  <Footer />
-                </PageStateProvider>
-              </ProductStateProvider>
-            </GlobalStateProvider>
-          </AuthContextProvider>
-        </main>
+        <AuthContextProvider>
+          <GlobalStateProvider>
+            <ProductStateProvider>
+              <PageStateProvider>
+                <div className="flex flex-col min-h-screen">
+                  <main className="bg-slate-50">
+                    <Navbar />
+                    {children}
+                  </main>
+                </div>
+                <Footer />
+              </PageStateProvider>
+            </ProductStateProvider>
+          </GlobalStateProvider>
+        </AuthContextProvider>
       </body>
     </html>
   );

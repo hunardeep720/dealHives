@@ -24,7 +24,7 @@ function Page() {
   const options = {
     method: "Get",
     headers: {
-      "X-RapidAPI-Key": "d70428a133msh0ee3a41e66d048fp1ed1cfjsnf242448b75f2",
+      "X-RapidAPI-Key": "9fbb674881msh68ecef059917512p167882jsna22056718f1b",
       "X-RapidAPI-Host": "amazon-product-data6.p.rapidapi.com",
     },
   };
@@ -93,7 +93,7 @@ function Page() {
               <div className="text-center col-span-full flex justify-center items-center">
                 <p className="text-xl font-bold">Loading...</p>
               </div>
-            ) : product && productsList.length > 0 ? (
+            ) : product && productsList && productsList.length > 0 ? (
               productsList.map((product) => (
                 <div key={product.asin} className="ease-in duration-200 col-span-1 text-center">
                   <Image

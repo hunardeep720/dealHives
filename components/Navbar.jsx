@@ -10,6 +10,10 @@ import React from "react";
 import { getItems } from "@/service/store-service";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { IoHome } from "react-icons/io5";
+import { FaUserAlt } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
+
 function Navbar() {
   const [open, setOpen] = useContext(GlobalStateContext);
   const [product, setProduct] = useContext(ProductStateContext);
@@ -55,8 +59,8 @@ function Navbar() {
           }
           onClick={open ? handleOpen : null}
         >
-          <div className=" z-[10] bg-slate-600">
-            <div className="grid grid-cols-3 justify-center sm:grid-cols-6">
+          <div className=" z-[10] bg-slate-200">
+            <div className="grid grid-cols-2 justify-center sm:grid-cols-6">
               <div className="my-3 pl-6 col-span-1">
                 <Link
                   onClick={() => {
@@ -64,39 +68,68 @@ function Navbar() {
                   }}
                   href="/"
                 >
-                  <h1 className="font-extrabold text-4xl">XYZ</h1>
+                  <h1 className="font-extrabold text-3xl hover:text-4xl">
+                    Deal Hives
+                  </h1>
                 </Link>
               </div>
-              <div className="hidden sm:block col-span-3">
-                <form className="flex items-center">
+              <div className="hidden sm:grid col-span-3 items-center">
+                <form className="flex items-center text-black">
                   <input
                     type="search"
                     value={search}
                     placeholder="Search products"
-                    className="p-1 border-black rounded-md w-full m-2"
+                    className="p-1 border-black hover:border-2 rounded-md w-full m-2 text-black placeholder:text-black"
                     onChange={(e) => {
-                      setSearch(e.target.value);setNewPage(true)
+                      setSearch(e.target.value);
+                      setNewPage(true);
                     }}
                   ></input>
                   {newPage ? (
                     <Link href="./Products" onClick={InputSearch}>
-                      <button type="submit" className="text-white text-2xl font-bold">Go</button>
+                      <button
+                        type="submit"
+                        className="text-black text-2xl font-bold hover:text-3xl hover:font-extrabold"
+                      >
+                        Go
+                      </button>
                     </Link>
                   ) : (
                     <Link href="./" onClick={InputSearch}>
-                      <button type="submit" className="text-white text-2xl font-bold">Go</button>
+                      <button
+                        type="submit"
+                        className="text-black text-2xl font-bold hover:text-3xl hover:font-extrabold"
+                      >
+                        Go
+                      </button>
                     </Link>
                   )}
                 </form>
               </div>
-              <div className="m-2 pl-7 pt-3 col-span-1 flex justify-center">
-                <Link href="/Account">
-                  <button className="font-bold">{name}</button>
+              <div className="m-2 pl-7 pt-3 col-span-1 flex sm:hidden justify-evenly">
+              <Link href="/Account">
+                  <button className="font-bold hover:text-lg hover:font-extrabold">
+                    {name}
+                  </button>
+                </Link>
+                <Link href="/Cart">
+                  <button className="font-bold hover:text-lg hover:font-extrabold">
+                    Cart
+                  </button>
                 </Link>
               </div>
-              <div className="pt-5 col-span-1 flex justify-evenly">
+              <div className="m-2 pl-7 pt-3 col-span-1 hidden sm:flex justify-center">
+                <Link href="/Account">
+                  <button className="font-bold hover:text-lg hover:font-extrabold">
+                    {name}
+                  </button>
+                </Link>
+              </div>
+              <div className="pt-5 col-span-1 hidden sm:flex justify-evenly">
                 <Link href="/Cart">
-                  <button className="font-bold">Cart</button>
+                  <button className="font-bold hover:text-lg hover:font-extrabold">
+                    Cart
+                  </button>
                 </Link>
               </div>
             </div>
@@ -110,29 +143,40 @@ function Navbar() {
               )}
 
               <form className="flex items-center justify-center">
-              <input
-                    type="search"
-                    value={search}
-                    placeholder="Search products"
-                    className="p-1 border-black rounded-md w-full m-2"
-                    onChange={(e) => {
-                      setSearch(e.target.value);setNewPage(true)
-                    }}
-                  ></input>
-                  {newPage ? (
-                    <Link href="./Products" onClick={InputSearch}>
-                      <button type="submit" className="text-white text-2xl font-bold">Go</button>
-                    </Link>
-                  ) : (
-                    <Link href="./" onClick={InputSearch}>
-                      <button type="submit" className="text-white text-2xl font-bold">Go</button>
-                    </Link>
-                  )}
-                </form>
+                <input
+                  type="search"
+                  value={search}
+                  placeholder="Search products"
+                  className="p-1 border-black placeholder:text-black rounded-md w-full m-2"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    setNewPage(true);
+                  }}
+                />
+                {newPage ? (
+                  <Link href="./Products" onClick={InputSearch}>
+                    <button
+                      type="submit"
+                      className="text-black text-2xl font-bold"
+                    >
+                      Go
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href="./" onClick={InputSearch}>
+                    <button
+                      type="submit"
+                      className="text-black text-2xl font-bold"
+                    >
+                      Go
+                    </button>
+                  </Link>
+                )}
+              </form>
             </div>
             <div>
-              <ul className="justify-evenly bg-slate-500 overflow-x-scroll hidden sm:pl-2 sm:flex">
-                <li className="p-2 mx-2 px-2">
+              <ul className="justify-evenly bg-slate-100 overflow-x-scroll hidden sm:pl-2 sm:flex">
+                <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
                     onClick={() => {
                       setProduct("electronics");
@@ -142,7 +186,7 @@ function Navbar() {
                     Electronics
                   </Link>
                 </li>
-                <li className="p-2 mx-2 px-2">
+                <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
                     onClick={() => {
                       setProduct("skin-care");
@@ -152,7 +196,7 @@ function Navbar() {
                     Skin Care
                   </Link>
                 </li>
-                <li className="p-2 mx-2 px-2">
+                <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
                     onClick={() => {
                       setProduct("furniture");
@@ -162,7 +206,7 @@ function Navbar() {
                     Furniture
                   </Link>
                 </li>
-                <li className="p-2 mx-2 px-2">
+                <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
                     onClick={() => {
                       setProduct("movies");
@@ -172,7 +216,7 @@ function Navbar() {
                     Movies
                   </Link>
                 </li>
-                <li className="p-2 px-2">
+                <li className="p-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
                     onClick={() => {
                       setProduct("kids");
@@ -182,7 +226,7 @@ function Navbar() {
                     Kids
                   </Link>
                 </li>
-                <li className="p-2 mx-2 px-2">
+                <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
                     onClick={() => {
                       setProduct("Sport");
@@ -199,24 +243,38 @@ function Navbar() {
         <div
           className={
             open
-              ? "sm:hidden pt-3 absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-end items-center w-36 h-screen bg-black/80 text-center ease-in duration-300 z-[18]"
-              : "sm:hidden absolute pt-3 top-0 left-[-100%] right-0 bottom-0 flex flex-col justify-end items-center w-32 h-screen bg-black/80 text-center ease-in duration-300 z-[18]"
+              ? "sm:hidden -mt-5 pt-3 absolute top-0 left-0 right-0 bottom-0 flex flex-col w-screen h-screen ease-in duration-300 z-[18]"
+              : "sm:hidden -mt-5 absolute pt-3 top-0 left-[-100%] right-0 bottom-0 flex flex-col w-screen h-screen ease-in duration-300 z-[18]"
           }
         >
-          <div className="my-4 mb-10 font-bold text-3xl hover:text-slate-400 text-white">
-            <Link href="/Account" onClick={handleOpen}>
-              {name}
-            </Link>
-          </div>
-          <div className="relative w-full grid grid-cols-2 mb-10">
-            <hr className="absolute border-b-4 w-full flex justify-start" />
-            <div className="absolute w-full h-10 ml-24 mb-10 flex justify-end">
-              <AiOutlineClose onClick={handleOpen} size={30} />
-            </div>
-          </div>
-          <ul className="flex justify-start text-white h-screen flex-col my-3">
-            <li className="my-4 font-bold text-2xl hover:text-slate-400">
-            <Link
+          <div className="grid grid-cols-4 w-screen z-20">
+            <div className="col-span-3 bg-slate-200 pl-3">
+              <div className="my-4 font-bold text-3xl text-black">
+                <Link
+                  href="/Account"
+                  onClick={handleOpen}
+                  className="flex items-center gap-2"
+                >
+                  {name} <FaUserAlt />
+                </Link>
+              </div>
+              <div className="relative w-full grid grid-cols-2 mb-10">
+                <hr className="absolute border-b-4 border-black w-full flex justify-start" />
+              </div>
+              <ul className="flex justify-start text-black h-screen flex-col my-3">
+                <li className="my-4 pl-5 font-bold text-2xl">
+                  <Link
+                    onClick={() => {
+                      handleOpen();
+                    }}
+                    href="./"
+                    className="flex items-center gap-2"
+                  >
+                    Home <IoHome />
+                  </Link>
+                </li>
+                <li className="my-4 pl-5 font-bold text-2xl">
+                  <Link
                     onClick={() => {
                       setProduct("electronics");
                       handleOpen();
@@ -225,9 +283,9 @@ function Navbar() {
                   >
                     Electronics
                   </Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-            <Link
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl">
+                  <Link
                     onClick={() => {
                       setProduct("Skin-Care");
                       handleOpen();
@@ -236,9 +294,9 @@ function Navbar() {
                   >
                     Skin Care
                   </Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-            <Link
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl">
+                  <Link
                     onClick={() => {
                       setProduct("furniture");
                       handleOpen();
@@ -247,9 +305,9 @@ function Navbar() {
                   >
                     Furniture
                   </Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-            <Link
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl">
+                  <Link
                     onClick={() => {
                       setProduct("movies");
                       handleOpen();
@@ -258,9 +316,9 @@ function Navbar() {
                   >
                     Movies
                   </Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-            <Link
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl">
+                  <Link
                     onClick={() => {
                       setProduct("kids");
                       handleOpen();
@@ -269,9 +327,9 @@ function Navbar() {
                   >
                     Kids
                   </Link>
-            </li>
-            <li className="my-4 m-2 pl-3 font-bold text-2xl hover:text-slate-400">
-            <Link
+                </li>
+                <li className="my-4 m-2 pl-3 font-bold text-2xl">
+                  <Link
                     onClick={() => {
                       setProduct("Sport");
                       handleOpen();
@@ -280,8 +338,13 @@ function Navbar() {
                   >
                     Sports
                   </Link>
-            </li>
-          </ul>
+                </li>
+              </ul>
+            </div>
+            <div className={open ? "bg-black/60 p-5" : "hidden"} onClick={handleOpen}>
+              <IoCloseSharp className="text-white" size={30} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
