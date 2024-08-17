@@ -13,7 +13,7 @@ import Space from "@/components/Space";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "XYZ.com",
+  title: "dealhives.com",
   description: "Create a website for online store",
 };
 
@@ -33,8 +33,8 @@ export default function RootLayout({ children }) {
           <GlobalStateProvider>
             <ProductStateProvider>
               <PageStateProvider>
-                <div className="flex flex-col min-h-screen">
-                  <main className="bg-slate-50">
+                <div className="flex flex-col min-h-screen bg-slate-50">
+                  <main className="">
                     <Navbar />
                     {children}
                   </main>

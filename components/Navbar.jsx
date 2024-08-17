@@ -68,7 +68,7 @@ function Navbar() {
                   }}
                   href="/"
                 >
-                  <h1 className="font-extrabold text-3xl hover:text-4xl">
+                  <h1 className="font-extrabold text-3xl sm:hover:text-4xl">
                     Deal Hives
                   </h1>
                 </Link>
@@ -89,7 +89,7 @@ function Navbar() {
                     <Link href="./Products" onClick={InputSearch}>
                       <button
                         type="submit"
-                        className="text-black text-2xl font-bold hover:text-3xl hover:font-extrabold"
+                        className="text-black text-2xl font-bold sm:hover:text-3xl sm:hover:font-extrabold"
                       >
                         Go
                       </button>
@@ -98,7 +98,7 @@ function Navbar() {
                     <Link href="./" onClick={InputSearch}>
                       <button
                         type="submit"
-                        className="text-black text-2xl font-bold hover:text-3xl hover:font-extrabold"
+                        className="text-black text-2xl font-bold sm:hover:text-3xl sm:hover:font-extrabold"
                       >
                         Go
                       </button>
@@ -107,7 +107,7 @@ function Navbar() {
                 </form>
               </div>
               <div className="m-2 pl-7 pt-3 col-span-1 flex sm:hidden justify-evenly">
-              <Link href="/Account">
+                <Link href="/Account">
                   <button className="font-bold hover:text-lg hover:font-extrabold">
                     {name}
                   </button>
@@ -120,14 +120,14 @@ function Navbar() {
               </div>
               <div className="m-2 pl-7 pt-3 col-span-1 hidden sm:flex justify-center">
                 <Link href="/Account">
-                  <button className="font-bold hover:text-lg hover:font-extrabold">
+                  <button className="font-bold sm:hover:text-lg sm:hover:font-extrabold">
                     {name}
                   </button>
                 </Link>
               </div>
               <div className="pt-5 col-span-1 hidden sm:flex justify-evenly">
                 <Link href="/Cart">
-                  <button className="font-bold hover:text-lg hover:font-extrabold">
+                  <button className="font-bold sm:hover:text-lg sm:hover:font-extrabold">
                     Cart
                   </button>
                 </Link>
@@ -341,7 +341,10 @@ function Navbar() {
                 </li>
               </ul>
             </div>
-            <div className={open ? "bg-black/60 p-5" : "hidden"} onClick={handleOpen}>
+            <div
+              className={open ? "bg-black/60 p-5" : "hidden"}
+              onClick={handleOpen}
+            >
               <IoCloseSharp className="text-white" size={30} />
             </div>
           </div>

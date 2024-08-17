@@ -1,6 +1,7 @@
 "use client";
 import Space from "@/components/Space";
 import React, { useEffect, useState, useContext } from "react";
+import { useSearchParams } from "next/navigation";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import Image from "next/image";
 import {
@@ -11,6 +12,8 @@ import ProductDescription from "@/components/ProductDescription";
 
 function Page() {
   const [open, setOpen] = useContext(GlobalStateContext);
+  const searchParams = useSearchParams(); //to read the url query parameters
+  const url = searchParams.get("url");
   const [sourceImage, setSourceImage] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -20,26 +23,6 @@ function Page() {
   const [product, setProduct] = useContext(ProductStateContext);
   const [productsList, setProductsList] = useState(null); // Initialize products as an empty array
   const [loading, setLoading] = useState(true); // Initialize loading state as true
-  const url = `https://amazon-product-data6.p.rapidapi.com/product-by-text?keyword=${product}&page=${page}&country=US&sort_by=feature`;
-  const options = {
-    method: "Get",
-    headers: {
-      "X-RapidAPI-Key": "9fbb674881msh68ecef059917512p167882jsna22056718f1b",
-      "X-RapidAPI-Host": "amazon-product-data6.p.rapidapi.com",
-    },
-  };
-  const fetchData = async () => {
-    try {
-      const fetchList = await fetch(url, options);
-      const jsonData = await fetchList.json();
-      console.log("jsonData: ", jsonData);
-      setProductsList(jsonData.data);
-      setLoading(false);
-      console.log(product);
-    } catch (error) {
-      console.error("error fetching data details: ", error);
-    }
-  };
   const truncateString = (str, maxLength) => {
     return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
   };
@@ -59,6 +42,8 @@ function Page() {
       setPage(page + 1);
     }
   };
+
+  useEffect(() => {console.log("url: ",url)}, [url]);
   const HandleProductSelect = (title, stars, price, image) => {
     setSourceImage(image);
     setDescription(title);

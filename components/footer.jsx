@@ -13,7 +13,7 @@ function footer() {
     setMessage("Thank you for subscribing!");
   };
   return (
-    <footer className=" w-full mx-auto bottom-0 mb-0">
+    <footer className=" w-full mx-auto bottom-0 mb-0 bg-slate-50">
       <div
         className={
           open
