@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import SimilarProducts from "./SimilarProducts";
+// import { SimilarProducts } from "./SimilarProducts";
 import { addProduct } from "@/service/store-service";
 import { useUserAuth } from "@/utils/auth-context";
-import ProductBuy from "./ProductBuy";
-import Space from "./Space";
+// import { ProductBuy } from "./ProductBuy";
+// import { Space } from "./Space";
 // import Page as BuyProductPage from "../BuyProduct/page";
 
 function ProductDescription({ description, sourceImage, price, rating }) {
@@ -29,11 +29,11 @@ function ProductDescription({ description, sourceImage, price, rating }) {
   };
   return (
     <div>
-      {page ? (
-        <ProductBuy />
+      {page ? (<></>
+        // <ProductBuy />
       ) : (
         <div>
-          <Space />
+          {/* <Space /> */}
           <div className="grid grid-cols-2 gap-6 my-8">
             <div className="grid col-span-1 w-1/2 h-1/2">
               <Image
@@ -71,7 +71,10 @@ function ProductDescription({ description, sourceImage, price, rating }) {
                 >
                   Add to Cart
                 </button>
-                <button onClick={BuyNow} className="text-white bg-black  hover:bg-black/30 hover:text-slate-800 px-4 py-2 rounded-md">
+                <button
+                  onClick={BuyNow}
+                  className="text-white bg-black  hover:bg-black/30 hover:text-slate-800 px-4 py-2 rounded-md"
+                >
                   Buy Now
                 </button>
               </div>
@@ -91,7 +94,7 @@ function ProductDescription({ description, sourceImage, price, rating }) {
               </div>
             </div>
           </div>
-          <SimilarProducts />
+          {/* <SimilarProducts /> */}
         </div>
       )}
     </div>

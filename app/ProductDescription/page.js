@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import SimilarProducts from "./SimilarProducts";
+import SimilarProducts from "@/components/SimilarProducts";
 import { addProduct } from "@/service/store-service";
 import { useUserAuth } from "@/utils/auth-context";
-import ProductBuy from "./ProductBuy";
-import Space from "./Space";
+import ProductBuy from "@/components/ProductBuy";
+import Space from "@/components/Space";
 // import Page as BuyProductPage from "../BuyProduct/page";
 
 function ProductDescription({ description, sourceImage, price, rating }) {

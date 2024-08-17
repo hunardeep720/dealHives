@@ -9,6 +9,7 @@ import {
 import { AuthContextProvider } from "@/utils/auth-context";
 import Footer from "@/components/footer";
 import Space from "@/components/Space";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,8 +36,10 @@ export default function RootLayout({ children }) {
               <PageStateProvider>
                 <div className="flex flex-col min-h-screen bg-slate-50">
                   <main className="">
-                    <Navbar />
-                    {children}
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <Navbar />
+                      {children}
+                    </Suspense>
                   </main>
                 </div>
                 <Footer />
