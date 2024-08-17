@@ -6,7 +6,6 @@ import Link from "next/link";
 function GiftsForEveryone() {
   const [gifts, setGifts] = useState(null);
 
-
   //to fetch gifts for everyone
   async function fetchGiftsData() {
     const url =
@@ -37,29 +36,37 @@ function GiftsForEveryone() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=gifts&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            url: "search?query=gifts",
+            page: 1,
+            country: "CA",
+            sort_by: "RELEVANCE",
+            product_condition: "ALL",
+            is_prime: false,
+            name: "Gifts for everyone",
           },
         }}
         as={
-          "/products?url=search?query=gifts&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false"
+          "/Products?url=search?query=gifts&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Gifts for everyone"
         }
         className="grid col-span-2 justify-center font-extrabold text-2xl py-5 sm:hover:text-3xl"
       >
         Gifts for everyone
       </Link>
-      {gifts &&
-      gifts.length > 0 &&
-      gifts[0] &&
-      gifts[1] ? (
+      {gifts && gifts.length > 0 && gifts[0] && gifts[1] ? (
         <>
           <div className="flex flex-col gap-3">
             <div className="flex gap-3">
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: gifts[1].asin },
+                  query: {
+                    asin: gifts[1].asin,
+                    product_name: gifts[1].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + gifts[1].asin}
+                as={`/ProductDescription?asin=${
+                  gifts[1].asin
+                }&product_name=${encodeURIComponent(gifts[1].product_title)}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -83,9 +90,14 @@ function GiftsForEveryone() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: gifts[1].asin },
+                  query: {
+                    asin: gifts[2].asin,
+                    product_name: gifts[2].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + gifts[1].asin}
+                as={` /ProductDescription?asin=${
+                  gifts[2].asin
+                }&product_name=${encodeURIComponent(gifts[2].product_title)}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -111,9 +123,14 @@ function GiftsForEveryone() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: gifts[1].asin },
+                  query: {
+                    asin: gifts[0].asin,
+                    product_name: gifts[0].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + gifts[1].asin}
+                as={`/ProductDescription?asin=${
+                  gifts[0].asin
+                }&product_name=${encodeURIComponent(gifts[0].product_title)}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -137,9 +154,14 @@ function GiftsForEveryone() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: gifts[1].asin },
+                  query: {
+                    asin: gifts[3].asin,
+                    product_name: gifts[3].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + gifts[1].asin}
+                as={`/ProductDescription?asin=${
+                  gifts[3].asin
+                }&product_name=${encodeURIComponent(gifts[3].product_title)}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image

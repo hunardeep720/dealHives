@@ -39,11 +39,17 @@ function BestSeller() {
         href={{
           pathname: "/Products",
           query: {
-            url: "products-by-category?category_id=2478868012&page=1&country=CA&sort_by=BEST_SELLERS&product_condition=NEW&is_prime=false",
+            url: "products-by-category?category_id=2478868012",
+            sort_by: "BEST_SELLERS",
+            page: 1,
+            country: "CA",
+            product_condition: "NEW",
+            is_prime: false,
+            name: "Best Sellers",
           },
         }}
         as={
-          "/products?url=products-by-category?category_id=2478868012&page=1&country=CA&sort_by=BEST_SELLERS&product_condition=NEW&is_prime=false"
+          "/Products?url=products-by-category?category_id=2478868012&page=1&country=CA&sort_by=BEST_SELLERS&product_condition=NEW&is_prime=false&name=Best Sellers"
         }
         className="grid col-span-2 justify-center font-extrabold text-2xl py-5 sm:hover:text-3xl"
       >
@@ -59,9 +65,15 @@ function BestSeller() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: bestSellerItems[1].asin },
+                  query: {
+                    asin: bestSellerItems[1].asin,
+                    product_name: bestSellerItems[1].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + bestSellerItems[1].asin}
+                as={`/ProductDescription?asin=
+                  ${bestSellerItems[1].asin}
+                  &product_name=
+                  ${encodeURIComponent(bestSellerItems[1].product_title)}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -85,9 +97,16 @@ function BestSeller() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: bestSellerItems[1].asin },
+                  query: {
+                    asin: bestSellerItems[2].asin,
+                    product_name: bestSellerItems[2].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + bestSellerItems[1].asin}
+                as={`/ProductDescription=${
+                  bestSellerItems[2].asin
+                }&product_name=${encodeURIComponent(
+                  bestSellerItems[2].product_title
+                )}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -113,9 +132,16 @@ function BestSeller() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: bestSellerItems[1].asin },
+                  query: {
+                    asin: bestSellerItems[0].asin,
+                    product_name: bestSellerItems[0].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + bestSellerItems[1].asin}
+                as={`/ProductDescription?asin=${
+                  bestSellerItems[0].asin
+                }&product_name=${encodeURIComponent(
+                  bestSellerItems[0].product_title
+                )}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -139,9 +165,16 @@ function BestSeller() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: bestSellerItems[1].asin },
+                  query: {
+                    asin: bestSellerItems[3].asin,
+                    product_name: bestSellerItems[3].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + bestSellerItems[1].asin}
+                as={`/ProductDescription?asin=${
+                  bestSellerItems[3].asin
+                }&product_name=${encodeURIComponent(
+                  bestSellerItems[3].product_title
+                )}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -173,6 +206,5 @@ function BestSeller() {
     </>
   );
 }
-
 
 export default BestSeller;

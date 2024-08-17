@@ -36,11 +36,17 @@ export default function NewArrival() {
         href={{
           pathname: "/Products",
           query: {
-            url: "products-by-category?category_id=2478868012&page=1&country=CA&sort_by=NEWEST&product_condition=NEW&is_prime=false",
+            url: "products-by-category?category_id=2478868012",
+            sort_by: "NEWEST",
+            page: 1,
+            country: "CA",
+            product_condition: "NEW",
+            is_prime: false,
+            name: "Newest Arrivals",
           },
         }}
         as={
-          "/products?url=products-by-category?category_id=2478868012&page=1&country=CA&sort_by=NEWEST&product_condition=NEW&is_prime=false"
+          "/Products?url=products-by-category?category_id=2478868012&page=1&country=CA&sort_by=NEWEST&product_condition=NEW&is_prime=false&name=Newest Arrivals"
         }
         className="grid col-span-2 justify-center font-extrabold text-2xl py-5 sm:hover:text-3xl"
       >
@@ -56,9 +62,16 @@ export default function NewArrival() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: newArrivalItems[1].asin },
+                  query: {
+                    asin: newArrivalItems[1].asin,
+                    product_name: newArrivalItems[1].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + newArrivalItems[1].asin}
+                as={`/ProductDescription?asin=${
+                  newArrivalItems[1].asin
+                }&product_name=${encodeURIComponent(
+                  newArrivalItems[1].product_title
+                )}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -82,9 +95,16 @@ export default function NewArrival() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: newArrivalItems[1].asin },
+                  query: {
+                    asin: newArrivalItems[2].asin,
+                    product_name: newArrivalItems[2].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + newArrivalItems[1].asin}
+                as={`/ProductDescription?asin=${
+                  newArrivalItems[2].asin
+                }&product_name=${encodeURIComponent(
+                  newArrivalItems[2].product_title
+                )}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -110,9 +130,16 @@ export default function NewArrival() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: newArrivalItems[1].asin },
+                  query: {
+                    asin: newArrivalItems[0].asin,
+                    product_name: newArrivalItems[0].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + newArrivalItems[1].asin}
+                as={`/ProductDescription?asin=${
+                  newArrivalItems[0].asin
+                }&product_name=${encodeURIComponent(
+                  newArrivalItems[0].product_title
+                )}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image
@@ -136,9 +163,16 @@ export default function NewArrival() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: newArrivalItems[1].asin },
+                  query: {
+                    asin: newArrivalItems[3].asin,
+                    product_name: newArrivalItems[3].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + newArrivalItems[1].asin}
+                as={`/ProductDescription?asin=${
+                  newArrivalItems[3].asin
+                }&product_name=${encodeURIComponent(
+                  newArrivalItems[3].product_title
+                )}`}
                 className="hover:border-2 border-black p-1"
               >
                 <Image

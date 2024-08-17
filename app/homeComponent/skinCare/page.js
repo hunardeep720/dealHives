@@ -37,11 +37,17 @@ function SkinCare() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=skin%20care&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            url: "search?query=skin%20care",
+            page: 1,
+            country: "CA",
+            sort_by: "RELEVANCE",
+            product_condition: "ALL",
+            is_prime: false,
+            name: "Personal Care",
           },
         }}
         as={
-          "/products?url=search?query=skin%20care&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false"
+          "/Products?url=search?query=skin%20care&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Personal Care"
         }
         className="grid col-span-2 justify-center font-extrabold text-2xl py-5 sm:hover:text-3xl"
       >
@@ -57,9 +63,16 @@ function SkinCare() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: skinCareItems[1].asin },
+                  query: {
+                    asin: skinCareItems[1].asin,
+                    product_name: skinCareItems[1].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + skinCareItems[1].asin}
+                as={`/ProductDescription?asin=${
+                  skinCareItems[1].asin
+                }&product_name=${encodeURIComponent(
+                  skinCareItems[1].product_title
+                )}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image
@@ -83,9 +96,12 @@ function SkinCare() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: skinCareItems[1].asin },
+                  query: {
+                    asin: skinCareItems[2].asin,
+                    product_name: skinCareItems[2].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + skinCareItems[1].asin}
+                as={`/ProductDescription?asin=${skinCareItems[2].asin}&product_name=${skinCareItems[2].product_title}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image
@@ -111,9 +127,12 @@ function SkinCare() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: skinCareItems[1].asin },
+                  query: {
+                    asin: skinCareItems[0].asin,
+                    product_name: skinCareItems[0].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + skinCareItems[1].asin}
+                as={`/ProductDescription?asin=${skinCareItems[0].asin}&product_name=${skinCareItems[0].product_title}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image
@@ -137,9 +156,12 @@ function SkinCare() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: skinCareItems[1].asin },
+                  query: {
+                    asin: skinCareItems[3].asin,
+                    product_name: skinCareItems[3].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + skinCareItems[1].asin}
+                as={`/ProductDescription?asin=${skinCareItems[3].asin}&product_name=${skinCareItems[3].product_title}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image

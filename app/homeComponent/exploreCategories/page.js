@@ -17,7 +17,7 @@ function ExploreCategories() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=electronics&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            url: "search?query=electronics",
           },
         }}
         as={
@@ -35,7 +35,7 @@ function ExploreCategories() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=movies&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            url: "search?query=movies",
           },
         }}
         as={
@@ -53,7 +53,7 @@ function ExploreCategories() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=sports&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            url: "search?query=sports",
           },
         }}
         as={
@@ -71,7 +71,7 @@ function ExploreCategories() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=kids&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            url: "search?query=kids",
           },
         }}
         as={
@@ -89,7 +89,7 @@ function ExploreCategories() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=comics&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            url: "search?query=comics",
           },
         }}
         as={'/Products?url=search?query=comics&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false'}

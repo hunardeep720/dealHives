@@ -37,26 +37,42 @@ function HomeDecoration() {
         href={{
           pathname: "/Products",
           query: {
-            url: "search?query=decorate%20Home&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false",
+            query: "decorate Home",
+            page: 1,
+            country: "CA",
+            sort_by: "RELEVANCE",
+            product_condition: "ALL",
+            is_prime: false,
+            name: "Decorate Your Home",
           },
         }}
         as={
-          "/products?url=search?query=decorate%20Home&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false"
+          "/Products?query=decorate%20Home&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Decorate Your Home"
         }
         className="grid col-span-2 justify-center font-extrabold text-2xl py-5 sm:hover:text-3xl"
       >
         Decorate Your Home
       </Link>
-      {decorateHome && decorateHome.length > 0 && decorateHome[0] && decorateHome[1] ? (
+      {decorateHome &&
+      decorateHome.length > 0 &&
+      decorateHome[0] &&
+      decorateHome[1] ? (
         <>
           <div className="flex gap-3 sm:gap-8">
             <div className="flex gap-3 sm:gap-8">
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: decorateHome[1].asin },
+                  query: {
+                    asin: decorateHome[1].asin,
+                    product_name: decorateHome[1].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + decorateHome[1].asin}
+                as={`/ProductDescription?asin=${
+                  decorateHome[1].asin
+                }&product_name=${encodeURIComponent(
+                  decorateHome[1].product_title
+                )}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image
@@ -80,9 +96,16 @@ function HomeDecoration() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: decorateHome[1].asin },
+                  query: {
+                    asin: decorateHome[2].asin,
+                    product_name: decorateHome[2].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + decorateHome[1].asin}
+                as={`/ProductDescription?asin=${
+                  decorateHome[2].asin
+                }&product_name=${encodeURIComponent(
+                  decorateHome[2].product_title
+                )}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image
@@ -108,9 +131,16 @@ function HomeDecoration() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: decorateHome[1].asin },
+                  query: {
+                    asin: decorateHome[0].asin,
+                    product_name: decorateHome[0].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + decorateHome[1].asin}
+                as={`/ProductDescription?asin=${
+                  decorateHome[0].asin
+                }&product_name=${encodeURIComponent(
+                  decorateHome[0].product_title
+                )}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image
@@ -134,9 +164,16 @@ function HomeDecoration() {
               <Link
                 href={{
                   pathname: "/ProductDescription",
-                  query: { asin: decorateHome[1].asin },
+                  query: {
+                    asin: decorateHome[3].asin,
+                    product_name: decorateHome[3].product_title,
+                  },
                 }}
-                as={"dealhives.com/description?asin=" + decorateHome[1].asin}
+                as={`/ProductDescription?asin=${
+                  decorateHome[3].asin
+                }&product_name=${encodeURIComponent(
+                  decorateHome[3].product_title
+                )}`}
                 className="hover:border-2 border-black p-5"
               >
                 <Image

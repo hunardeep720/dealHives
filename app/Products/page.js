@@ -8,55 +8,101 @@ import {
   ProductStateContext,
   GlobalStateContext,
 } from "../GlobalStateVariable";
-import ProductDescription from "@/components/ProductDescription";
+import FilterComponent from "../productComponent/page";
 
 function Page() {
   const [open, setOpen] = useContext(GlobalStateContext);
+
+  //fetching data from url
   const searchParams = useSearchParams(); //to read the url query parameters
-  const url = searchParams.get("url");
-  const [sourceImage, setSourceImage] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
-  const [productSelect, setProductSelect] = useState(false);
-  const [page, setPage] = useState(1);
-  const [product, setProduct] = useContext(ProductStateContext);
+  const urlReaded = searchParams.get("url");
+  const itemName = searchParams.get("name"); //fetching the name from the url
+  const [productName, setProductName] = useState(itemName ? itemName : "");
+  const sortBy = searchParams.get("sort_by");
+  const country = searchParams.get("country");
+  const productCondition = searchParams.get("product_condition");
+  const isPrime = searchParams.get("is_prime");
+  const urlPage = searchParams.get("page");
+
+  //using global state to store the selected product
+  const [page, setPage] = useState(urlPage ? urlPage : 1);
+  const [selectedCountry, setSelectedCountry] = useState(
+    country ? country : "CA"
+  );
+  const [selectedSortBy, setSelectedSortBy] = useState(
+    sortBy ? sortBy : "RELEVANCE"
+  );
+  const [selectedProductCondition, setSelectedProductCondition] = useState(
+    productCondition ? productCondition : "ALL"
+  );
+  const [selectedIsPrime, setSelectedIsPrime] = useState(
+    isPrime ? isPrime : false
+  );
+
   const [productsList, setProductsList] = useState(null); // Initialize products as an empty array
   const [loading, setLoading] = useState(true); // Initialize loading state as true
-  const truncateString = (str, maxLength) => {
-    return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
-  };
-  useEffect(() => {
-    fetchData();
-  }, [page]);
-  useEffect(() => {
-    fetchData();
-  }, [product]);
+
+  async function fetchData() {
+    const url = `https://real-time-amazon-data.p.rapidapi.com/${urlReaded}&page=${page}&country=${selectedCountry}&sort_by=${selectedSortBy}&product_condition=${selectedProductCondition}&is_prime=${selectedIsPrime}`;
+    const options = {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY,
+        "x-rapidapi-host": process.env.NEXT_PUBLIC_RAPIDAPI_HOST,
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      const products = result.data.products;
+      setProductsList(products);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const PagePrev = () => {
     if (page >= 2) {
-      setPage(page - 1);
+      setPage((prev) => prev - 1);
+      setLoading(true);
     }
   };
   const PageNext = () => {
-    if (page <= 9) {
-      setPage(page + 1);
+    if (page <= 6) {
+      setPage((prev) => prev + 1);
+      setLoading(true);
     }
   };
 
-  useEffect(() => {console.log("url: ",url)}, [url]);
-  const HandleProductSelect = (title, stars, price, image) => {
-    setSourceImage(image);
-    setDescription(title);
-    setPrice(price);
-    setRating(stars);
-    console.log("title: ", title);
-    console.log("stars: ", stars);
-    console.log("price: ", price);
-    console.log("image: ", image);
-    setProductSelect(true);
-  };
+  useEffect(() => {
+    if (
+      urlReaded &&
+      page &&
+      selectedCountry &&
+      selectedSortBy &&
+      selectedProductCondition &&
+      selectedIsPrime
+    ) {
+      fetchData();
+    }
+  }, [
+    urlReaded,
+    page,
+    selectedCountry,
+    selectedSortBy,
+    selectedProductCondition,
+    selectedIsPrime,
+  ]);
+
+  useEffect(() => {
+    if (productsList && productsList.length > 0 && productsList[0]) {
+      console.log("productList: ", productsList);
+      setLoading(false);
+    }
+  }, [productsList]);
   return (
-    <div className="max-w-screen-2xl mx-auto p-6">
+    <div className="max-w-screen-4xl mx-auto p-6">
       <div
         className={
           open
@@ -64,51 +110,67 @@ function Page() {
             : "ease-in duration-500"
         }
       >
-        {productSelect ? (
-          <ProductDescription description={description} sourceImage={sourceImage} price={price} rating={rating} />
-        ) : (
-          <div>
-        <Space />
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
-            <p className="ease-in duration-700 col-span-full font-extrabold mb-5 text-xl">
+        <div>
+          <Space />
+          <div className="grid">
+            <p className="ease-in duration-700 font-extrabold mb-5 text-xl">
               {" "}
-              The given result is shown on the basis of search "{product}".
+              The given result is shown on the basis of search "{productName}".
             </p>
             {loading ? (
               <div className="text-center col-span-full flex justify-center items-center">
                 <p className="text-xl font-bold">Loading...</p>
               </div>
-            ) : product && productsList && productsList.length > 0 ? (
-              productsList.map((product) => (
-                <div key={product.asin} className="ease-in duration-200 col-span-1 text-center">
-                  <Image
-                    src={product.image}
-                    alt="product"
-                    width={500}
-                    height={600}
-                    objectFit="cover"
-                    className="w-48 h-48"
-                  />
-                  <p
-                    onClick={() =>
-                      HandleProductSelect(
-                        product.title,
-                        product.stars,
-                        product.price,
-                        product.image
-                      )
-                    }
-                    className="font-extrabold text-xs hover:cursor-pointer hover:text-slate-500"
-                  >
-                    {truncateString(product.title, 20)}
-                  </p>
-
-                  <p className="text-lg">{product.price}</p>
-                </div>
-              ))
             ) : (
-              <div className="text-center col-span-full flex justify-center items-center">
-                <p className="text-xl font-bold">No products found</p>
+              <div className="flex gap-3">
+                <FilterComponent
+                  selectedCountry={selectedCountry}
+                  selectedSortBy={selectedSortBy}
+                  selectedProductCondition={selectedProductCondition}
+                  selectedIsPrime={selectedIsPrime}
+                  setSelectedCountry={setSelectedCountry}
+                  setSelectedSortBy={setSelectedSortBy}
+                  setSelectedProductCondition={setSelectedProductCondition}
+                  setSelectedIsPrime={setSelectedIsPrime}
+                  setLoading={setLoading}
+                />
+                <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
+                {productsList && productsList.length > 0 && productsList[0] ? (
+                  productsList.map((product) => (
+                    <div
+                      key={product.asin}
+                      className="ease-in duration-200 col-span-1 text-center p-1 bg-slate-100 border-2 shadow-xl grid grid-cols-2 gap-2 cursor-pointer hover:border-2 hover:border-black hover:p-2"
+                    >
+                      <Image
+                        src={product.product_photo}
+                        alt="product"
+                        width={500}
+                        height={600}
+                        objectFit="cover"
+                        className="w-48 h-48 col-span-full mx-auto"
+                      />
+                      <p
+                        onClick={() =>
+                          HandleProductSelect(
+                            product.title,
+                            product.stars,
+                            product.price,
+                            product.image
+                          )
+                        }
+                        className="font-extrabold text-lg hover:cursor-pointer hover:text-slate-500"
+                      >
+                        {product.product_title.slice(0, 25)}...
+                      </p>
+
+                      <p className="text-lg">{product.product_price}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center col-span-full flex justify-center items-center">
+                    <p className="text-xl font-bold">No products found</p>
+                  </div>
+                )}</div>
               </div>
             )}
             <div className="flex col-span-full justify-center text-center">
@@ -125,8 +187,7 @@ function Page() {
               />
             </div>
           </div>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
