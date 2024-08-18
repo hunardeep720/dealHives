@@ -227,7 +227,7 @@ function ProductDescription({ description, sourceImage, price, rating }) {
                   />
                 ))}
               </div>
-              <div className="col-span-full">
+              <div className="col-span-full sm:hidden grid">
                 <ul className="lg:text-xl">
                   {Object.entries(productDetail.product_variations).map(
                     ([key, value]) => (
