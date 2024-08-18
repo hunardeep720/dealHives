@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 function SimilarProducts({ name }) { // Corrected to destructure `name` from props
   const [productsList, setProductsList] = useState(null);
@@ -54,7 +55,12 @@ function SimilarProducts({ name }) { // Corrected to destructure `name` from pro
             <p className="text-3xl font-bold py-5">Similar Products</p>
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
               {sliceArray.map((product) => (
-                <div
+                <Link
+                href={{
+                  pathname: "/ProductDescription",
+                  query: { asin: product.asin },
+                }}
+                as={`/ProductDescription?asin=${product.asin}&name=${encodeURIComponent(product.product_title)}`}
                   key={product.asin}
                   className="ease-in duration-200 col-span-1 text-center"
                 >
@@ -70,7 +76,7 @@ function SimilarProducts({ name }) { // Corrected to destructure `name` from pro
                     {product.product_title.slice(0, 25)}...
                   </p>
                   <p className="text-lg">{product.product_price}</p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

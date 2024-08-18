@@ -45,15 +45,22 @@ function ProductDescription({ description, sourceImage, price, rating }) {
     }
   }
 
-  const AddCartHandler = (e) => {
+  const AddCartHandler = (
+    e,
+    title,
+    description,
+    image,
+    price,
+    rating,
+  ) => {
     e.preventDefault();
     if (user) {
-      const product = { description, sourceImage, price, rating, amount };
+      const product = { title, description, image, price, rating, amount };
       addProduct(user.uid, product);
       setMessage("Product added to cart");
       setAmount(1);
     } else {
-      setMessage("Please Sign In to add product to cart");
+      alert("Please Sign In to add product to cart");
     }
   };
   const BuyNow = () => {
@@ -187,7 +194,7 @@ function ProductDescription({ description, sourceImage, price, rating }) {
               </div>
               <div className="sm:flex hidden gap-5 mt-10">
                 <button
-                  onClick={AddCartHandler}
+                  onClick={(e)=>AddCartHandler(e, productDetail.product_title, productDetail.product_description, productDetail.product_photo, productDetail.product_price, productDetail.product_star_rating)}
                   className=" text-white bg-black  hover:bg-black/30 hover:text-slate-800 p-4 rounded-md"
                 >
                   Add to Cart
@@ -215,55 +222,55 @@ function ProductDescription({ description, sourceImage, price, rating }) {
               </div>
             </div>
             <div className="flex overflow-scroll sm:hidden gap-3 col-span-full">
-                {productDetail.product_photos.map((photo, index) => (
-                  <Image
-                    key={index}
-                    src={photo}
-                    height={80}
-                    width={80}
-                    className="border-2 border-black hover:border-4 hover:cursor-pointer p-1"
-                    onClick={() => setImage(photo)}
-                    onMouseEnter={() => setImage(photo)}
-                  />
-                ))}
-              </div>
-              <div className="col-span-full sm:hidden grid">
-                <ul className="lg:text-xl">
-                  {Object.entries(productDetail.product_variations).map(
-                    ([key, value]) => (
-                      <li
-                        key={key}
-                        className="grid grid-cols-4 gap-2 items-center border-b-2 pb-4 border-t-2 pt-4"
-                      >
-                        <strong>{key}:</strong>{" "}
-                        {value.map((item) => {
-                          return (
-                            <Link
-                              href={{
-                                pathname: item.is_available
-                                  ? "/ProductDescription"
-                                  : "#",
-                                query: {
-                                  asin: item.asin,
-                                  name: productDetail.product_title,
-                                },
-                              }}
-                              as={`/ProductDescription?asin=${item.asin}&name=${productDetail.product_title}`}
-                              className={
-                                item.is_available
-                                  ? "border-2 border-black p-1 bg-white"
-                                  : "border-2 p-1 bg-slate-50 hover:cursor-not-allowed"
-                              }
-                            >
-                              {item.value}&nbsp;
-                            </Link>
-                          );
-                        })}
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
+              {productDetail.product_photos.map((photo, index) => (
+                <Image
+                  key={index}
+                  src={photo}
+                  height={80}
+                  width={80}
+                  className="border-2 border-black hover:border-4 hover:cursor-pointer p-1"
+                  onClick={() => setImage(photo)}
+                  onMouseEnter={() => setImage(photo)}
+                />
+              ))}
+            </div>
+            <div className="col-span-full sm:hidden grid">
+              <ul className="lg:text-xl">
+                {Object.entries(productDetail.product_variations).map(
+                  ([key, value]) => (
+                    <li
+                      key={key}
+                      className="grid grid-cols-4 gap-2 items-center border-b-2 pb-4 border-t-2 pt-4"
+                    >
+                      <strong>{key}:</strong>{" "}
+                      {value.map((item) => {
+                        return (
+                          <Link
+                            href={{
+                              pathname: item.is_available
+                                ? "/ProductDescription"
+                                : "#",
+                              query: {
+                                asin: item.asin,
+                                name: productDetail.product_title,
+                              },
+                            }}
+                            as={`/ProductDescription?asin=${item.asin}&name=${productDetail.product_title}`}
+                            className={
+                              item.is_available
+                                ? "border-2 border-black p-1 bg-white"
+                                : "border-2 p-1 bg-slate-50 hover:cursor-not-allowed"
+                            }
+                          >
+                            {item.value}&nbsp;
+                          </Link>
+                        );
+                      })}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
             <div className="mb-2 col-span-full">
               {productDetail.about_product.map((item, index) => (
                 <p key={index} className="text-black font-bold sm:text-xl">

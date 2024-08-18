@@ -7,7 +7,7 @@ import {
 import Link from "next/link";
 import { useUserAuth } from "@/utils/auth-context";
 import React from "react";
-import { getItems } from "@/service/store-service";
+import { getUserData } from "@/service/getServices/page";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { IoHome } from "react-icons/io5";
@@ -25,15 +25,16 @@ function Navbar() {
   const handleOpen = () => {
     setOpen(!open);
   };
-  const loadItems = async () => {
-    if (user) {
-      const userItems = await getItems(user.uid);
-      setName("Hi " + userItems.map((item) => item.name));
-    } else {
-      console.log("no user");
-      setName("Sign In");
-    }
-  };
+
+  async function loadItems() {
+    getUserData(async (data) => {
+      console.log("data: ", data);
+      if (data) {
+        setName("Hi " + data.firstName);
+      }
+    }, user);
+  }
+
   useEffect(() => {
     loadItems();
   }, [user]);
@@ -89,21 +90,23 @@ function Navbar() {
                   ></input>
                   {newPage ? (
                     <Link
-                    href={{
-                      pathname: "/Products",
-                      query: {
-                        url: `search?query=${encodeURIComponent(search)}`,
-                        page: 1,
-                        country: "US",
-                        sort_by: "RELEVANCE",
-                        product_condition: "ALL",
-                        is_prime: "false",
-                        name: search,
-                      },
-                    }}
-                    as={`/Products?url=search?query=${search}&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=${encodeURIComponent(search)}'`}
-                    onClick={InputSearch}
-                  >
+                      href={{
+                        pathname: "/Products",
+                        query: {
+                          url: `search?query=${encodeURIComponent(search)}`,
+                          page: 1,
+                          country: "US",
+                          sort_by: "RELEVANCE",
+                          product_condition: "ALL",
+                          is_prime: "false",
+                          name: search,
+                        },
+                      }}
+                      as={`/Products?url=search?query=${search}&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=${encodeURIComponent(
+                        search
+                      )}'`}
+                      onClick={InputSearch}
+                    >
                       <button
                         type="submit"
                         className="text-black text-2xl font-bold sm:hover:text-3xl sm:hover:font-extrabold"
@@ -184,7 +187,9 @@ function Navbar() {
                         name: search,
                       },
                     }}
-                    as={`/Products?url=search?query=${search}&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=${encodeURIComponent(search)}'`}
+                    as={`/Products?url=search?query=${search}&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=${encodeURIComponent(
+                      search
+                    )}'`}
                     onClick={InputSearch}
                   >
                     <button
