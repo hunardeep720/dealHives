@@ -49,7 +49,10 @@ function Navbar() {
     }
   };
   return (
-    <div className="w-full flex justify-center fixed left-0 top-0 z-[10] bg-slate-50">
+    <div
+      className="w-full flex justify-center fixed left-0 top-0 z-[10] bg-slate-50"
+      style={{ zIndex: 10 }}
+    >
       <div className="z-10 max-w-screen-2xl w-full">
         <div
           className={

@@ -9,9 +9,11 @@ import {
   GlobalStateContext,
 } from "../GlobalStateVariable";
 import FilterComponent from "../productComponent/page";
+import FilterComponentForSmallScreens from "../productComponent/filterForSmallScreens/page";
 
 function Page() {
   const [open, setOpen] = useContext(GlobalStateContext);
+  const [filterComponent, setFilterComponent] = useState(false);
 
   //fetching data from url
   const searchParams = useSearchParams(); //to read the url query parameters
@@ -117,6 +119,14 @@ function Page() {
               {" "}
               The given result is shown on the basis of search "{productName}".
             </p>
+            <div className="sm:hidden w-full">
+              <button
+                onClick={() => setFilterComponent(!filterComponent)}
+                className="p-2 m-2 text-lg font-semibold text-blue-600 rounded-lg"
+              >
+                Filter
+              </button>
+            </div>
             {loading ? (
               <div className="text-center col-span-full flex justify-center items-center">
                 <p className="text-xl font-bold">Loading...</p>
@@ -134,43 +144,46 @@ function Page() {
                   setSelectedIsPrime={setSelectedIsPrime}
                   setLoading={setLoading}
                 />
-                <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
-                {productsList && productsList.length > 0 && productsList[0] ? (
-                  productsList.map((product) => (
-                    <div
-                      key={product.asin}
-                      className="ease-in duration-200 col-span-1 text-center p-1 bg-slate-100 border-2 shadow-xl grid grid-cols-2 gap-2 cursor-pointer hover:border-2 hover:border-black hover:p-2"
-                    >
-                      <Image
-                        src={product.product_photo}
-                        alt="product"
-                        width={500}
-                        height={600}
-                        objectFit="cover"
-                        className="w-48 h-48 col-span-full mx-auto"
-                      />
-                      <p
-                        onClick={() =>
-                          HandleProductSelect(
-                            product.title,
-                            product.stars,
-                            product.price,
-                            product.image
-                          )
-                        }
-                        className="font-extrabold text-lg hover:cursor-pointer hover:text-slate-500"
+                <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6 md:grid-cols-3">
+                  {productsList &&
+                  productsList.length > 0 &&
+                  productsList[0] ? (
+                    productsList.map((product) => (
+                      <div
+                        key={product.asin}
+                        className="ease-in duration-200 col-span-1 text-center p-1 bg-slate-100 border-2 shadow-xl grid grid-cols-2 gap-2 cursor-pointer hover:border-2 hover:border-black hover:p-2"
                       >
-                        {product.product_title.slice(0, 25)}...
-                      </p>
+                        <Image
+                          src={product.product_photo}
+                          alt="product"
+                          width={500}
+                          height={600}
+                          objectFit="cover"
+                          className="w-48 h-48 col-span-full mx-auto"
+                        />
+                        <p
+                          onClick={() =>
+                            HandleProductSelect(
+                              product.title,
+                              product.stars,
+                              product.price,
+                              product.image
+                            )
+                          }
+                          className="font-extrabold text-lg hover:cursor-pointer hover:text-slate-500"
+                        >
+                          {product.product_title.slice(0, 25)}...
+                        </p>
 
-                      <p className="text-lg">{product.product_price}</p>
+                        <p className="text-lg">{product.product_price}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center col-span-full flex justify-center items-center">
+                      <p className="text-xl font-bold">No products found</p>
                     </div>
-                  ))
-                ) : (
-                  <div className="text-center col-span-full flex justify-center items-center">
-                    <p className="text-xl font-bold">No products found</p>
-                  </div>
-                )}</div>
+                  )}
+                </div>
               </div>
             )}
             <div className="flex col-span-full justify-center text-center">
@@ -188,6 +201,29 @@ function Page() {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className={
+          filterComponent
+            ? "sm:hidden -mt-5 pt-3 absolute top-0 left-0 right-0 bottom-0 flex flex-col w-screen h-screen ease-in duration-300 z-[18]"
+            : "sm:hidden -mt-5 absolute pt-3 left-0 top-[100%] right-0 bottom-0 flex flex-col w-screen h-screen ease-in duration-300 z-[18]"
+        }
+      >
+        {filterComponent && (
+          <FilterComponentForSmallScreens
+            selectedCountry={selectedCountry}
+            selectedSortBy={selectedSortBy}
+            selectedProductCondition={selectedProductCondition}
+            selectedIsPrime={selectedIsPrime}
+            setSelectedCountry={setSelectedCountry}
+            setSelectedSortBy={setSelectedSortBy}
+            setSelectedProductCondition={setSelectedProductCondition}
+            setSelectedIsPrime={setSelectedIsPrime}
+            setLoading={setLoading}
+            setFilterComponent={setFilterComponent}
+            filterComponent={filterComponent}
+          />
+        )}
       </div>
     </div>
   );
