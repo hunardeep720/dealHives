@@ -16,7 +16,7 @@ import { IoCloseSharp } from "react-icons/io5";
 
 function Navbar() {
   const [open, setOpen] = useContext(GlobalStateContext);
-  const [product, setProduct] = useContext(ProductStateContext);
+  const [product, setProduct] = useState("");
   const [page, setPage] = useContext(PageStateContext);
   const [name, setName] = useState("Sign In");
   const { user } = useUserAuth();
@@ -39,9 +39,8 @@ function Navbar() {
   }, [user]);
   const InputSearch = () => {
     if (search.length > 0) {
-      const stringWithHypens = search.split(" ").join("-");
+      const stringWithHypens = search.split(" ").join("%20");
       setProduct(stringWithHypens);
-      setSearch("");
       setNewPage(true);
     } else {
       setSearch("Enter Something");
@@ -89,7 +88,22 @@ function Navbar() {
                     }}
                   ></input>
                   {newPage ? (
-                    <Link href="./Products" onClick={InputSearch}>
+                    <Link
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: `search?query=${encodeURIComponent(search)}`,
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: search,
+                      },
+                    }}
+                    as={`/Products?url=search?query=${search}&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=${encodeURIComponent(search)}'`}
+                    onClick={InputSearch}
+                  >
                       <button
                         type="submit"
                         className="text-black text-2xl font-bold sm:hover:text-3xl sm:hover:font-extrabold"
@@ -98,7 +112,7 @@ function Navbar() {
                       </button>
                     </Link>
                   ) : (
-                    <Link href="./" onClick={InputSearch}>
+                    <Link href="#" onClick={InputSearch}>
                       <button
                         type="submit"
                         className="text-black text-2xl font-bold sm:hover:text-3xl sm:hover:font-extrabold"
@@ -157,7 +171,22 @@ function Navbar() {
                   }}
                 />
                 {newPage ? (
-                  <Link href="./Products" onClick={InputSearch}>
+                  <Link
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: `search?query=${encodeURIComponent(search)}`,
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: search,
+                      },
+                    }}
+                    as={`/Products?url=search?query=${search}&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=${encodeURIComponent(search)}'`}
+                    onClick={InputSearch}
+                  >
                     <button
                       type="submit"
                       className="text-black text-2xl font-bold"
@@ -166,7 +195,7 @@ function Navbar() {
                     </button>
                   </Link>
                 ) : (
-                  <Link href="./" onClick={InputSearch}>
+                  <Link href="#" onClick={InputSearch}>
                     <button
                       type="submit"
                       className="text-black text-2xl font-bold"

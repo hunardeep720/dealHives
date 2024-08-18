@@ -10,6 +10,7 @@ import {
 } from "../GlobalStateVariable";
 import FilterComponent from "../productComponent/page";
 import FilterComponentForSmallScreens from "../productComponent/filterForSmallScreens/page";
+import Link from "next/link";
 
 function Page() {
   const [open, setOpen] = useContext(GlobalStateContext);
@@ -103,6 +104,7 @@ function Page() {
       setLoading(false);
     }
   }, [productsList]);
+  useEffect(() => {console.log(productName)}, [productName]);
   return (
     <div className="max-w-screen-4xl mx-auto p-6">
       <div
@@ -149,9 +151,18 @@ function Page() {
                   productsList.length > 0 &&
                   productsList[0] ? (
                     productsList.map((product) => (
-                      <div
+                      <Link
                         key={product.asin}
                         className="ease-in duration-200 col-span-1 text-center p-1 bg-slate-100 border-2 shadow-xl grid grid-cols-2 gap-2 cursor-pointer hover:border-2 hover:border-black hover:p-2"
+                        href={{
+                          pathname: "/ProductDescription",
+                          query:{
+                            asin: product.asin,
+                            name: product.product_title,
+                            country: selectedCountry,
+                          }
+                        }}
+                        as={`/ProductDescription?asin=${product.asin}&name=${product.product_title}&country=${encodeURIComponent(selectedCountry)}`}
                       >
                         <Image
                           src={product.product_photo}
@@ -162,21 +173,13 @@ function Page() {
                           className="w-48 h-48 col-span-full mx-auto"
                         />
                         <p
-                          onClick={() =>
-                            HandleProductSelect(
-                              product.title,
-                              product.stars,
-                              product.price,
-                              product.image
-                            )
-                          }
                           className="font-extrabold text-lg hover:cursor-pointer hover:text-slate-500"
                         >
                           {product.product_title.slice(0, 25)}...
                         </p>
 
                         <p className="text-lg">{product.product_price}</p>
-                      </div>
+                      </Link>
                     ))
                   ) : (
                     <div className="text-center col-span-full flex justify-center items-center">

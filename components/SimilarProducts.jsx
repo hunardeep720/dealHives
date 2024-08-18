@@ -1,130 +1,83 @@
 "use client";
-import React, {useContext, useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import {
-  ProductStateContext,
-  GlobalStateContext,
-} from "@/app/GlobalStateVariable";
-import ProductDescription from "@/components/ProductDescription";
-import Space from './Space';
 
-function SimilarProducts() {
-  const [productsList, setProductsList] = useState([]);
-  const [sourceImage, setSourceImage] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
-  const [productSelect, setProductSelect] = useState(false);
+function SimilarProducts({ name }) { // Corrected to destructure `name` from props
+  const [productsList, setProductsList] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [product, setProduct] = useContext(ProductStateContext);
-  const url = `https://amazon-product-data6.p.rapidapi.com/product-by-text?keyword=${product}&country=US&sort_by=feature`;
-  const options = {
-    method: "Get",
-    headers: {
-      "X-RapidAPI-Key": "d70428a133msh0ee3a41e66d048fp1ed1cfjsnf242448b75f2",
-      "X-RapidAPI-Host": "amazon-product-data6.p.rapidapi.com",
-    },
-  };
-  const truncateString = (str, maxLength) => {
-    return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
-  };
-  const fetchData = async () => {
+  const [sliceArray, setSliceArray] = useState(null);
+
+  async function fetchData() {
+    const url = `https://real-time-amazon-data.p.rapidapi.com/search?query=${name}&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false`;
+    const options = {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY,
+        "x-rapidapi-host": process.env.NEXT_PUBLIC_RAPIDAPI_HOST,
+      },
+    };
+
     try {
-      const fetchList = await fetch(url, options);
-      const jsonData = await fetchList.json();
-      console.log("jsonData: ", jsonData);
-      setProductsList(jsonData.data);
+      const response = await fetch(url, options);
+      const result = await response.json();
+      const products = result.data.products;
+      setProductsList(products);
       setLoading(false);
-      console.log(product);
     } catch (error) {
-      console.error("error fetching data details: ", error);
+      console.error(error);
+      setLoading(false);
     }
-  };
-  const sortByBestSeller = (a, b) => {
-    if (a.is_best_seller && !b.is_best_seller) {
-      return -1; // 'a' comes before 'b'
-    } else if (!a.is_best_seller && b.is_best_seller) {
-      return 1; // 'b' comes before 'a'
-    } else {
-      return 0; // No change in order
-    }
-  };
+  }
+
   useEffect(() => {
-    fetchData();
-  }, [product]);
-  useEffect(() => {
-    if (productsList.length > 0){
-      productsList.sort(sortByBestSeller);
+    if (productsList && productsList.length > 0) {
+      setSliceArray(productsList.slice(1, 13));
     }
-  },[productsList]);
-  const HandleProductSelect = (title, stars, price, image) => {
-    setSourceImage(image);
-    setDescription(title);
-    setPrice(price);
-    setRating(stars);
-    console.log("title: ", title);
-    console.log("stars: ", stars);
-    console.log("price: ", price);
-    console.log("image: ", image);
-    setProductSelect(true);
-  };
+  }, [productsList]);
+
+  useEffect(() => {
+    if (name) {
+      fetchData();
+    }
+  }, [name]);
+
   return (
-    <div className='text-center'>
-      {productSelect ? (<div className='top-0 relative'>
-        <div className='fixed'>
-          <Space />
+    <div className="text-center">
+      {loading ? (
+        <div className="w-full flex justify-center items-center text-xl font-bold animate-pulse">
+          Loading...
         </div>
-        
-        <ProductDescription className="absolute" description={description} sourceImage={sourceImage} price={price} rating={rating} />
-      </div>
-          
-        ) : (<div>
-        <p className='text-3xl font-bold'>Similar Products</p>
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
-            {loading ? (
-              <div className="text-center col-span-full flex justify-center items-center">
-                <p className="text-xl font-bold">Loading...</p>
-              </div>
-            ) : productsList.length > 0 ? (
-              productsList.map((product) => (
-                <div key={product.asin} className="ease-in duration-200 col-span-1 text-center">
-                  {product.is_best_seller ? (
-                    <div>
-                   <Image
-                    src={product.image}
+      ) : (
+        sliceArray &&
+        sliceArray.length > 0 && (
+          <div>
+            <p className="text-3xl font-bold py-5">Similar Products</p>
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 xl:grid-cols-6">
+              {sliceArray.map((product) => (
+                <div
+                  key={product.asin}
+                  className="ease-in duration-200 col-span-1 text-center"
+                >
+                  <Image
+                    src={product.product_photo}
                     alt="product"
                     width={500}
                     height={600}
                     objectFit="cover"
                     className="w-48 h-48"
                   />
-                  <p
-                    onClick={() =>
-                      HandleProductSelect(
-                        product.title,
-                        product.stars,
-                        product.price,
-                        product.image
-                      )
-                    }
-                    className="font-extrabold text-xs hover:cursor-pointer hover:text-slate-500"
-                  >
-                    {truncateString(product.title, 20)}
+                  <p className="font-extrabold text-xs hover:cursor-pointer hover:text-slate-500">
+                    {product.product_title.slice(0, 25)}...
                   </p>
-
-                  <p className="text-lg">{product.price}</p> </div>
-                  ) : null}
-                  
+                  <p className="text-lg">{product.product_price}</p>
                 </div>
-              ))
-            ) : (
-              <div className="text-center col-span-full flex justify-center items-center">
-                <p className="text-xl font-bold">No products found</p>
-              </div>
-            )}
-        </div> </div>)}
+              ))}
+            </div>
+          </div>
+        )
+      )}
     </div>
-  )
+  );
 }
 
-export default SimilarProducts
+export default SimilarProducts;
