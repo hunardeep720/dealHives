@@ -20,6 +20,8 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if(currentUser) {
         setUser(currentUser.uid);
+      }else {
+        setUser(false);
       }
     });
     return () => unsubscribe();

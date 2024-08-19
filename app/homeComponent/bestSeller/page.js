@@ -102,7 +102,7 @@ function BestSeller() {
                     product_name: bestSellerItems[2].product_title,
                   },
                 }}
-                as={`/ProductDescription=${
+                as={`/ProductDescription?asin=${
                   bestSellerItems[2].asin
                 }&product_name=${encodeURIComponent(
                   bestSellerItems[2].product_title

@@ -31,3 +31,23 @@ export async function addUserInformation(user, data) {
       console.error("Error updating document: ", e);
     }
   }
+  
+  export async function addProductsToCart(user,date){
+    try{
+      const docRef = collection(db, "users", user,"cart");
+      await addDoc(docRef, date);
+      console.log("Document written with ID: ", docRef.id);
+    }catch(e){
+      console.error("Error adding document: ", e);
+    }
+  }
+
+  export async function deleteFromCart(user,id){
+    try{
+      const docRef = doc(db, "users", user,"cart",id);
+      await deleteDoc(docRef);
+      console.log("Document deleted with ID: ", docRef.id);
+    }catch(e){
+      console.error("Error deleting document: ", e);
+    }
+  }
