@@ -21,3 +21,13 @@ export async function addUserInformation(user, data) {
       console.error("Error adding document: ", e);
     }
   }
+
+  export async function updateUserData(user,data){
+    try{
+      const docRef = doc(db, "users", user);
+      await updateDoc(docRef, data);
+      console.log("Document updated with ID: ", docRef.id);
+    }catch(e){
+      console.error("Error updating document: ", e);
+    }
+  }

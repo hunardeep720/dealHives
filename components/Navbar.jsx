@@ -1,7 +1,6 @@
 "use client";
 import {
   GlobalStateContext,
-  ProductStateContext,
   PageStateContext,
 } from "@/app/GlobalStateVariable";
 import Link from "next/link";
@@ -9,14 +8,13 @@ import { useUserAuth } from "@/utils/auth-context";
 import React from "react";
 import { getUserData } from "@/service/getServices/page";
 import { useContext, useEffect, useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import { IoHome } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 
 function Navbar() {
   const [open, setOpen] = useContext(GlobalStateContext);
-  const [product, setProduct] = useState("");
   const [page, setPage] = useContext(PageStateContext);
   const [name, setName] = useState("Sign In");
   const { user } = useUserAuth();
@@ -40,8 +38,6 @@ function Navbar() {
   }, [user]);
   const InputSearch = () => {
     if (search.length > 0) {
-      const stringWithHypens = search.split(" ").join("%20");
-      setProduct(stringWithHypens);
       setNewPage(true);
     } else {
       setSearch("Enter Something");
@@ -215,60 +211,114 @@ function Navbar() {
               <ul className="justify-evenly bg-slate-100 overflow-x-scroll hidden sm:pl-2 sm:flex">
                 <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
-                    onClick={() => {
-                      setProduct("electronics");
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=electronics",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Electronics",
+                      },
                     }}
-                    href="./Products"
+                    as={`/Products?url=search?query=electronics&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Electronics`}
                   >
                     Electronics
                   </Link>
                 </li>
                 <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
-                    onClick={() => {
-                      setProduct("skin-care");
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=skin%20care",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Skin Care",
+                      },
                     }}
-                    href="./Products"
+                    as={`/Products?url=search?query=skin%20care&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Skin Care`}
                   >
                     Skin Care
                   </Link>
                 </li>
                 <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
-                    onClick={() => {
-                      setProduct("furniture");
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=furniture",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Furniture",
+                      },
                     }}
-                    href="./Products"
+                    as={`/Products?url=search?query=furniture&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Furniture`}
                   >
                     Furniture
                   </Link>
                 </li>
                 <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
-                    onClick={() => {
-                      setProduct("movies");
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=movies",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Movies",
+                      },
                     }}
-                    href="./Products"
+                    as={`/Products?url=search?query=movies&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Movies`}
                   >
                     Movies
                   </Link>
                 </li>
                 <li className="p-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
-                    onClick={() => {
-                      setProduct("kids");
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=kids",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Kids",
+                      },
                     }}
-                    href="./Products"
+                    as={`/Products?url=search?query=kids&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Kids`}
                   >
                     Kids
                   </Link>
                 </li>
                 <li className="p-2 mx-2 px-2 hover:text-lg hover:font-semibold">
                   <Link
-                    onClick={() => {
-                      setProduct("Sport");
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=sport",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Sports",
+                      },
                     }}
-                    href="./Products"
+                    as={`/Products?url=search?query=sport&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Sports`}
                   >
                     Sports
                   </Link>
@@ -313,10 +363,21 @@ function Navbar() {
                 <li className="my-4 pl-5 font-bold text-2xl">
                   <Link
                     onClick={() => {
-                      setProduct("electronics");
                       handleOpen();
                     }}
-                    href="./Products"
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=electronics",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Electronics",
+                      },
+                    }}
+                    as={`/Products?url=search?query=electronics&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Electronics`}
                   >
                     Electronics
                   </Link>
@@ -324,10 +385,21 @@ function Navbar() {
                 <li className="my-4 m-2 pl-3 font-bold text-2xl">
                   <Link
                     onClick={() => {
-                      setProduct("Skin-Care");
                       handleOpen();
                     }}
-                    href="./Products"
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=skin%20care",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Skin Care",
+                      },
+                    }}
+                    as={`/Products?url=search?query=skin%20care&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Skin Care`}
                   >
                     Skin Care
                   </Link>
@@ -335,10 +407,21 @@ function Navbar() {
                 <li className="my-4 m-2 pl-3 font-bold text-2xl">
                   <Link
                     onClick={() => {
-                      setProduct("furniture");
                       handleOpen();
                     }}
-                    href="./Products"
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=furniture",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Furniture",
+                      },
+                    }}
+                    as={`/Products?url=search?query=furniture&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Furniture`}
                   >
                     Furniture
                   </Link>
@@ -346,10 +429,21 @@ function Navbar() {
                 <li className="my-4 m-2 pl-3 font-bold text-2xl">
                   <Link
                     onClick={() => {
-                      setProduct("movies");
                       handleOpen();
                     }}
-                    href="./Products"
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=movies",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Movies",
+                      },
+                    }}
+                    as={`/Products?url=search?query=movies&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Movies`}
                   >
                     Movies
                   </Link>
@@ -357,10 +451,21 @@ function Navbar() {
                 <li className="my-4 m-2 pl-3 font-bold text-2xl">
                   <Link
                     onClick={() => {
-                      setProduct("kids");
                       handleOpen();
                     }}
-                    href="./Products"
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=kids",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Kids",
+                      },
+                    }}
+                    as={`/Products?url=search?query=kids&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Kids`}
                   >
                     Kids
                   </Link>
@@ -368,10 +473,21 @@ function Navbar() {
                 <li className="my-4 m-2 pl-3 font-bold text-2xl">
                   <Link
                     onClick={() => {
-                      setProduct("Sport");
                       handleOpen();
                     }}
-                    href="./Products"
+                    href={{
+                      pathname: "/Products",
+                      query: {
+                        url: "search?query=sport",
+                        page: 1,
+                        country: "US",
+                        sort_by: "RELEVANCE",
+                        product_condition: "ALL",
+                        is_prime: "false",
+                        name: "Sports",
+                      },
+                    }}
+                    as={`/Products?url=search?query=sport&page=1&country=CA&sort_by=RELEVANCE&product_condition=ALL&is_prime=false&name=Sports`}
                   >
                     Sports
                   </Link>

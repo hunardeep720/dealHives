@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useUserAuth } from "@/utils/auth-context";
 import { getUserData } from "@/service/getServices/page";
+import { formatPhoneNumber, formatPostalCode } from "./formated";
+import { updateUserData } from "@/service/postServices/page";
 
 function Information() {
   const [edit, setEdit] = useState(false);
@@ -15,6 +17,8 @@ function Information() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [pincode, setPincode] = useState("");
   const [state, setState] = useState("");
+  const [streetNumber, setStreetNumber] = useState("");
+  const [unitNumber, setUnitNumber] = useState("");
   const [items, setItems] = useState(null);
   const { user, firebaseSignOut } = useUserAuth();
 
@@ -22,43 +26,22 @@ function Information() {
     await firebaseSignOut();
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name.length > 0) {
-      updateName(user.uid, userId, name);
-    }
-    if (lastName.length > 0) {
-      updateLastName(user.uid, userId, lastName);
-    }
-    if (address.length > 0) {
-      updateAddress(user.uid, itemId, address);
-    }
-    if (city.length > 0) {
-      updateCity(user.uid, itemId, city);
-    }
-    if (country.length > 0) {
-      updateCountry(user.uid, itemId, country);
-    }
-    if (mobileNumber.length > 0) {
-      updateMobileNumber(user.uid, itemId, mobileNumber);
-    }
-    if (pincode.length > 0) {
-      updatePinCode(user.uid, itemId, pincode);
-    }
-    if (state.length > 0) {
-      updateState(user.uid, itemId, state);
-    }
-    setEdit(!edit);
-    window.location.reload();
+    const data = {
+      firstName: name,
+      lastName: lastName,
+      email: items.email,
+      phone: mobileNumber,
+      address: `${streetNumber} ${unitNumber}`,
+      city: city,
+      state: state,
+      country: country,
+      pincode: pincode,
+    };
+    await updateUserData(user, data).then(() => {alert("User Information Updated")});
   };
 
-  const EditHandler = () => {
-    setEdit(!edit);
-  };
-
-  // const SaveHandler = () => {
-  //   setEdit(!edit);
-  // };
   function loadItems() {
     getUserData((data) => {
       console.log("information data: ", data);
@@ -75,164 +58,143 @@ function Information() {
   }, [user]);
   useEffect(() => {
     console.log("items: ", items);
+    if (items) {
+      setName(items.firstName);
+      setLastName(items.lastName);
+      setStreetNumber(items.address.split(" ")[0]);
+      setUnitNumber(items.address.split(" ")[1]);
+      setCity(items.city);
+      setCountry(items.country);
+      setMobileNumber(items.phone);
+      setPincode(items.pincode);
+      setState(items.state);
+    }
   }, [items]);
 
   return (
-    <div className="max-w-screen-2xl mx-auto p-4 grid justify-center items-center bg-slate-50 text-center">
+    <div className="max-w-screen-2xl mx-auto p-4 grid justify-center items-center bg-slate-50 text-center my-5">
+      <div className="flex right-0 justify-end">
+        <button
+          className="p-1 text-white bg-black hover:bg-black/30 hover:text-slate-800"
+          onClick={handleSignOut}
+        >
+          Sign out
+        </button>
+      </div>
+
       <p className="font-extrabold text-4xl m-8">User Information</p>
       {items && items !== null ? (
         <>
-          <div
-            className={
-              edit ? "hidden" : "border shadow-lg p-2 bg-white w-full m-4"
-            }
-          >
-            <div className="grid grid-cols-2 gap-5 m-5 text-center">
-              {items.firstName && (
-                <div className="border p-1">{items.firstName}</div>
-              )}
-              {items.lastName && (
-                <div className="border p-1">{items.lastName}</div>
-              )}
-              {items.address && (
-                <div className="border p-1">{items.address}</div>
-              )}
-              {items.city && <div className="border p-1">{items.city}</div>}
-              {items.country && (
-                <div className="border p-1">{items.country}</div>
-              )}
-              {items.mobileNumber && (
-                <div className="border p-1">{items.mobileNumber}</div>
-              )}
-              {items.pincode && (
-                <div className="border p-1">{items.pincode}</div>
-              )}
-              {items.state && <div className="border p-1">{items.state}</div>}
-            </div>
-          </div>
-          <div
-            className={
-              edit ? "border shadow-lg p-2 bg-white m-4 w-full" : "hidden"
-            }
-          >
-            <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-5 m-5 text-center">
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 bg-white shadow-lg w-full p-5">
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">First Name:</label>
                 <input
-                  placeholder={items.firstName}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setUserId(items.id);
-                  }}
-                  className="border p-1 text-center"
+                  value={name}
+                  placeholder={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="p-1 bg-slate-100 rounded-xl"
                 />
-                {items.lastName && (
-                  <input
-                    placeholder={items.lastName}
-                    onChange={(e) => {
-                      setLastName(e.target.value);
-                      setUserId(items.id);
-                    }}
-                    className="border p-1 text-center"
-                  />
-                )}
-                {items.address && (
-                  <input
-                    placeholder={items.address}
-                    onChange={(e) => {
-                      setAddress(e.target.value);
-                      setItemId(items.id);
-                    }}
-                    className="border p-1 text-center"
-                  />
-                )}
-                {items.city && (
-                  <input
-                    placeholder={items.city}
-                    onChange={(e) => {
-                      setCity(e.target.value);
-                      setItemId(items.id);
-                    }}
-                    className="border p-1 text-center"
-                  />
-                )}
-                {items.country && (
-                  <input
-                    placeholder={items.country}
-                    onChange={(e) => {
-                      setCountry(e.target.value);
-                      setItemId(items.id);
-                    }}
-                    className="border p-1 text-center"
-                  />
-                )}
-                {items.mobileNumber && (
-                  <input
-                    type="tel"
-                    placeholder={items.mobileNumber}
-                    maxLength={10}
-                    onChange={(e) => {
-                      setMobileNumber(e.target.value);
-                      setItemId(items.id);
-                    }}
-                    className="border p-1 text-center"
-                  />
-                )}
-                {items.pincode && (
-                  <input
-                    placeholder={items.pincode}
-                    maxLength={6}
-                    onChange={(e) => {
-                      setPincode(e.target.value);
-                      setItemId(items.id);
-                      console.log(items.id);
-                    }}
-                    className="border p-1 text-center"
-                  />
-                )}
-                {items.state && (
-                  <input
-                    placeholder={items.state}
-                    onChange={(e) => {
-                      setState(e.target.value);
-                      setItemId(items.id);
-                    }}
-                    className="border p-1 text-center"
-                  />
-                )}
               </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Last Name:</label>
+                <input
+                  value={lastName}
+                  placeholder={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Email:</label>
+                <input
+                  value={items.email}
+                  placeholder={items.email}
+                  readOnly
+                  className="p-1 w-full bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Mobile Number:</label>
+                <input
+                  value={mobileNumber}
+                  placeholder={mobileNumber}
+                  onChange={(e) =>
+                    setMobileNumber(formatPhoneNumber(e.target.value))
+                  }
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Street Number:</label>
+                <input
+                  value={streetNumber}
+                  placeholder={streetNumber}
+                  onChange={(e) => setStreetNumber(e.target.value)}
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Unit Number:</label>
+                <input
+                  value={unitNumber}
+                  placeholder={unitNumber}
+                  onChange={(e) => setUnitNumber(e.target.value)}
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">City:</label>
+                <input
+                  value={city}
+                  placeholder={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Province:</label>
+                <input
+                  value={state}
+                  placeholder={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Country:</label>
+                <input
+                  value={country}
+                  placeholder={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+              <div className="flex gap-2 p-1">
+                <label className="flex items-center">Pin Code:</label>
+                <input
+                  value={pincode}
+                  placeholder={pincode}
+                  onChange={(e) => setPincode(formatPostalCode(e.target.value))}
+                  className="p-1 bg-slate-100 rounded-xl"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col w-full items-center col-span-full">
               <button
                 type="submit"
                 className="p-1 text-white bg-black hover:bg-black/30 hover:text-slate-800 w-1/2 mt-5"
               >
                 Save
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
         </>
       ) : (
         <div className="w-full flex justify-center items-center animate-pulse font-bold text-3xl">
           Loading...
         </div>
       )}
-
-      <div className="flex flex-col w-full items-center">
-        <button
-          onClick={EditHandler}
-          className={
-            edit
-              ? "hidden"
-              : "p-1 text-white bg-black hover:bg-black/30 hover:text-slate-800 w-1/2 mt-5"
-          }
-        >
-          Edit
-        </button>
-        <button
-          className="p-1 text-white bg-black hover:bg-black/30 hover:text-slate-800 m-5 w-1/2"
-          onClick={handleSignOut}
-        >
-          Sign out
-        </button>
-      </div>
     </div>
   );
 }
