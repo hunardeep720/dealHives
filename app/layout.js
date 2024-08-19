@@ -8,7 +8,6 @@ import {
 } from "./GlobalStateVariable";
 import { AuthContextProvider } from "@/utils/auth-context";
 import Footer from "@/components/footer";
-import Space from "@/components/Space";
 import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -32,19 +31,15 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthContextProvider>
           <GlobalStateProvider>
-            <ProductStateProvider>
-              <PageStateProvider>
-                <div className="flex flex-col min-h-screen bg-slate-50">
-                  <main className="">
-                    <Suspense fallback={<div>Loading...</div>}>
-                      <Navbar />
-                      {children}
-                    </Suspense>
-                  </main>
-                </div>
-                <Footer />
-              </PageStateProvider>
-            </ProductStateProvider>
+            <div className="flex flex-col min-h-screen bg-slate-50">
+              <main className="">
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Navbar />
+                  {children}
+                </Suspense>
+              </main>
+            </div>
+            <Footer />
           </GlobalStateProvider>
         </AuthContextProvider>
       </body>

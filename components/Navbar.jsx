@@ -1,7 +1,6 @@
 "use client";
 import {
   GlobalStateContext,
-  PageStateContext,
 } from "@/app/GlobalStateVariable";
 import Link from "next/link";
 import { useUserAuth } from "@/utils/auth-context";
@@ -15,7 +14,6 @@ import { IoCloseSharp } from "react-icons/io5";
 
 function Navbar() {
   const [open, setOpen] = useContext(GlobalStateContext);
-  const [page, setPage] = useContext(PageStateContext);
   const [name, setName] = useState("Sign In");
   const { user } = useUserAuth();
   const [newPage, setNewPage] = useState(false);
@@ -62,9 +60,6 @@ function Navbar() {
             <div className="grid grid-cols-2 justify-center sm:grid-cols-6">
               <div className="my-3 pl-6 col-span-1">
                 <Link
-                  onClick={() => {
-                    setPage(false);
-                  }}
                   href="/"
                 >
                   <h1 className="font-extrabold text-3xl sm:hover:text-4xl">

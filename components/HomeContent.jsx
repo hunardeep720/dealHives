@@ -2,11 +2,9 @@
 import React from "react";
 import {
   GlobalStateContext,
-  PageStateContext,
 } from "@/app/GlobalStateVariable";
 import { useContext } from "react";
 import Space from "./Space";
-import SearchProducts from "./SearchProducts";
 import NewArrival from "@/app/homeComponent/newArrivals/page";
 import BestSeller from "@/app/homeComponent/bestSeller/page";
 import GiftsForEveryone from "@/app/homeComponent/giftForEveryone/page";
@@ -16,14 +14,10 @@ import ExploreCategories from "@/app/homeComponent/exploreCategories/page";
 
 function HomeContent() {
   const [open, setOpen] = useContext(GlobalStateContext);
-  const [page, setPage] = useContext(PageStateContext);
 
   return (
     <div className="mx-auto w-auto mb-12 relative">
       <Space />
-      {page ? (
-        <SearchProducts />
-      ) : (
         <div
           className={
             open
@@ -50,7 +44,6 @@ function HomeContent() {
             <ExploreCategories />
           </div>
         </div>
-      )}
     </div>
   );
 }

@@ -3,12 +3,13 @@ import Space from "@/components/Space";
 import React from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Link from "next/link";
-import { GlobalStateContext, UserGlobalContext } from "../GlobalStateVariable";
+import { GlobalStateContext } from "../GlobalStateVariable";
 import { useContext, useState } from "react";
 import { auth } from "@/utils/firebase";
 import { useUserAuth } from "@/utils/auth-context";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Information from "@/components/Information";
+
 function page() {
   const { user } = useUserAuth();
   const [email, setEmail] = useState("");
@@ -125,9 +126,13 @@ function page() {
               <p>Haven’t created an account yet?</p>
               <div className="flex gap-2">
                 <p>Click here to</p>
-              <Link href="./SignUp" className="font-bold hover:text-slate-500 text-blue-500">
-                Sign up
-              </Link></div>
+                <Link
+                  href="./SignUp"
+                  className="font-bold hover:text-slate-500 text-blue-500"
+                >
+                  Sign up
+                </Link>
+              </div>
             </div>
           </div>
         </div>

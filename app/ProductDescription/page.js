@@ -4,7 +4,6 @@ import Image from "next/image";
 import SimilarProducts from "@/components/SimilarProducts";
 import { addProduct } from "@/service/store-service";
 import { useUserAuth } from "@/utils/auth-context";
-import ProductBuy from "@/components/ProductBuy";
 import Space from "@/components/Space";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";

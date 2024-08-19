@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Space from "@/components/Space";
 
 function FilterComponentForSmallScreens({
   selectedCountry,

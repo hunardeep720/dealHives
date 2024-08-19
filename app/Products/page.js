@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import Image from "next/image";
 import {
-  ProductStateContext,
   GlobalStateContext,
 } from "../GlobalStateVariable";
 import FilterComponent from "../productComponent/page";
