@@ -1,83 +1,81 @@
-"use client";
-import Link from "next/link";
-import { useState, useContext } from "react";
-import React from "react";
-import { GlobalStateContext } from "@/app/GlobalStateVariable";
-function footer() {
-  const [open, setOpen] = useContext(GlobalStateContext);
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const SubmitHandler = (e) => {
-    e.preventDefault();
-    setEmail("");
-    setMessage("Thank you for subscribing!");
-  };
+'use client'
+
+import Link from "next/link"
+import { useState, useContext } from "react"
+import { GlobalStateContext } from "@/app/GlobalStateVariable"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
+export default function Footer() {
+  const [open] = useContext(GlobalStateContext)
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setEmail("")
+    setMessage("Thank you for subscribing!")
+  }
+
   return (
-    <footer className=" w-full mx-auto bottom-0 mb-0 bg-slate-50">
+    <footer className="w-full shadow-inner">
       <div
-        className={
-          open
-            ? "container grid grid-cols-2 sm:grid-cols-4 gap-6 bg-slate-200 px-4 z-[1] bg-transparent opacity-40 ease-in duration-500 max-w-screen-2xl mx-auto"
-            : "container grid grid-cols-2 sm:grid-cols-4 gap-6 bg-slate-200 px-4 ease-in duration-500 max-w-screen-2xl mx-auto"
-        }
+        className={`container grid grid-cols-2 sm:grid-cols-4 gap-6 px-4 py-8 max-w-screen-2xl mx-auto transition-opacity duration-500 ease-in ${
+          open ? "opacity-40" : "opacity-100"
+        }`}
       >
-        <div className="col-span-2 grid pl-3">
-          <p className="font-extrabold text-4xl py-3">XYZ</p>
-          <p className="font-bold py-2 mb-2">Subscribe for more offers</p>
-          <form onSubmit={SubmitHandler}>
-            <div className="flex gap-5">
-              <input
+        <div className="col-span-2 space-y-4 text-black">
+          <h2 className="font-extrabold text-4xl">XYZ</h2>
+          <h3 className="font-bold">Subscribe for more offers</h3>
+          <form onSubmit={(e)=>handleSubmit(e)} className="space-y-2">
+            <div className="flex gap-2">
+              <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter Your Email"
-                className="border rounded-xl p-1 text-center"
                 required
               />
-              <button
-                type="submit"
-                className="hover:bg-slate-300 font-bold p-1 rounded-xl w-1/2 my-2 max-w-[100px]"
-              >
+              <Button type="submit" variant="secondary">
                 Submit
-              </button>
+              </Button>
             </div>
-            <p className="text-sm text-blue-400 mt-2">{message}</p>
+            {message && <p className="text-sm text-blue-400">{message}</p>}
           </form>
         </div>
-        <div>
-          <p className="py-3 font-bold text-2xl">About Us</p>
-          <Link href="./CustomerHelp/#companyOverview">
-            <p className="font-semibold hover:text-slate-300 py-3">
-              Company Overview
-            </p>
-          </Link>
-          <Link href="./CustomerHelp/#customerCommitment">
-            <p className="font-semibold hover:text-slate-300 py-3">
-              Customer Commitment
-            </p>
-          </Link>
-          <Link href="./CustomerHelp/#serviceQualityAndValues">
-            <p className="font-semibold hover:text-slate-300 py-3">
-              Service Quality And Values
-            </p>
-          </Link>
-        </div>
-        <div>
-          <p className="py-3 font-bold text-2xl">Need Help</p>
-          <Link href="./CustomerHelp/#contactInformation">
-            <p className="font-semibold hover:text-slate-300 py-3">
-              Contact Information
-            </p>
-          </Link>
-          <Link href="./CustomerHelp/#feedbackAndSuggestions">
-            <p className="font-semibold hover:text-slate-300 py-3">
-              Feedback and Suggestions
-            </p>
-          </Link>
-        </div>
+        <nav className="space-y-4 text-black">
+          <h3 className="font-bold text-2xl">About Us</h3>
+          <ul className="space-y-2">
+            {[
+              { href: "./CustomerHelp/#companyOverview", label: "Company Overview" },
+              { href: "./CustomerHelp/#customerCommitment", label: "Customer Commitment" },
+              { href: "./CustomerHelp/#serviceQualityAndValues", label: "Service Quality And Values" },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <Link href={href} className="font-semibold hover:text-slate-300">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav className="space-y-4 text-black">
+          <h3 className="font-bold text-2xl">Need Help</h3>
+          <ul className="space-y-2">
+            {[
+              { href: "./CustomerHelp/#contactInformation", label: "Contact Information" },
+              { href: "./CustomerHelp/#feedbackAndSuggestions", label: "Feedback and Suggestions" },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <Link href={href} className="font-semibold hover:text-slate-300">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </footer>
-  );
+  )
 }
 
-export default footer;
