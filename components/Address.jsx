@@ -1,135 +1,168 @@
 "use client";
-import { useState } from "react";
-import React from "react";
-import Link from "next/link";
+
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { formatPhoneNumber, formatPostalCode } from "./formated";
 
-function Address({
-  setComplete,
-  setLoginCity,
-  setLoginMobileNumber,
-  setLoginAddress,
-  setLoginState,
-  setLoginCountry,
-  setLoginPinCode,
-}) {
-  const [address, setAddress] = useState("");
-  const [street, setStreet] = useState("");
-  const [unit, setUnit] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("Canada");
-  const [pincode, setPincode] = useState("");
-  const [done, setDone] = useState(false);
+const canadianProvinces = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Northwest Territories",
+  "Nunavut",
+  "Yukon",
+];
+
+function Address({ setComplete, setLoginData }) {
+  const [formData, setFormData] = useState({
+    mobile: "",
+    street: "",
+    unit: "",
+    city: "",
+    province: "",
+    country: "Canada",
+    pincode: "",
+  });
+
+  const handleChange = (e) => {
+    let value = e.target.value;
+    if (e.target.name === "mobile") {
+      value = formatPhoneNumber(value);
+    } else if (e.target.name === "pincode") {
+      value = formatPostalCode(value);
+    }
+    setFormData({ ...formData, [e.target.name]: value });
+  };
+
+  const handleProvinceChange = (value) => {
+    setFormData({ ...formData, province: value });
+  };
 
   const SubmitHandler = (e) => {
     e.preventDefault();
-    setLoginMobileNumber(mobile);
-    setLoginAddress(`${street} ${unit}`);
-    setLoginCity(city);
-    setLoginState(state);
-    setLoginCountry(country);
-    setLoginPinCode(pincode);
+    setLoginData((prev) => ({
+      ...prev,
+      mobileNumber: formData.mobile,
+      address: `${formData.street} ${formData.unit}`,
+      city: formData.city,
+      state: formData.province,
+      country: formData.country,
+      pinCode: formData.pincode,
+    }));
     setComplete(true);
-    setAddress("");
-    setMobile("");
-    setCity("");
-    setState("");
-    setCountry("Canada");
-    setPincode("");
   };
-  return (
-    <div className="max-w-screen-2xl mx-auto grid justify-center item-center text-center items-center">
-      <p className="mb-8 font-extrabold text-2xl">Delivery Address</p>
-      <form
-        onSubmit={(e) => SubmitHandler(e)}
-        className="grid grid-cols-2 gap-6 mx-2"
-      >
-        <input
-          type="tel"
-          maxLength={14}
-          value={mobile}
-          onChange={(e) => setMobile(formatPhoneNumber(e.target.value))}
-          placeholder="Mobile Number"
-          className="border shadow-lg p-2 placeholder:font-bold"
-          required
-        />
-        <input
-          type="text"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-          placeholder="Street Address"
-          className="border shadow-lg p-2 placeholder:font-bold"
-          required
-        />
-        <input
-          type="text"
-          value={unit}
-          onChange={(e) => setUnit(e.target.value)}
-          placeholder="Unit Number"
-          className="border shadow-lg p-2 placeholder:font-bold"
-          required
-        />
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="City"
-          className="border shadow-lg p-2 placeholder:font-bold"
-          required
-        />
-        <input
-          type="text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          placeholder="Province"
-          className="border shadow-lg p-2 placeholder:font-bold"
-          required
-        />
-        <input
-          type="text"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          placeholder="Country"
-          className="border shadow-lg p-2 placeholder:font-bold"
-          required
-        />
-        <input
-          type="text"
-          maxLength={7}
-          value={pincode}
-          onChange={(e) => setPincode(formatPostalCode(e.target.value))}
-          placeholder="Pincode"
-          className="border shadow-lg p-2 placeholder:font-bold"
-          required
-        />
-        {done ? (
-          <div className="col-span-2 grid-cols-2">
-            <p className="col-span-1 text-blue-500 m-2">
-              Address Added Successfully
-            </p>
 
-            <Link href="./">
-              <button
-                type="submit"
-                className="col-span-1 p-1 w-full text-white bg-black  hover:bg-black/30 hover:text-slate-800"
-              >
-                Next
-              </button>
-            </Link>
-          </div>
-        ) : (
-          <button
-            type="submit"
-            className="col-span-2 p-1 text-white bg-black  hover:bg-black/30 hover:text-slate-800"
+  return (
+    <form onSubmit={SubmitHandler} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="mobile">Mobile Number</Label>
+        <Input
+          id="mobile"
+          name="mobile"
+          value={formData.mobile}
+          onChange={handleChange}
+          maxLength={14}
+          required
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="street">Street Address</Label>
+        <Input
+          id="street"
+          name="street"
+          value={formData.street}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="unit">Unit Number</Label>
+        <Input
+          id="unit"
+          name="unit"
+          value={formData.unit}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="city">City</Label>
+          <Input
+            id="city"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="province">Province</Label>
+          <Select
+            name="province"
+            value={formData.province}
+            onValueChange={handleProvinceChange}
+            required
           >
-            Submit
-          </button>
-        )}
-      </form>
-    </div>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a province" />
+            </SelectTrigger>
+            <SelectContent>
+              {canadianProvinces.map((province) => (
+                <SelectItem key={province} value={province}>
+                  {province}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="country">Country</Label>
+          <Input
+            id="country"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            required
+            disabled
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="pincode">Postal Code</Label>
+          <Input
+            id="pincode"
+            name="pincode"
+            value={formData.pincode}
+            onChange={handleChange}
+            maxLength={7}
+            required
+          />
+        </div>
+      </div>
+      <Button type="submit" className="w-full">
+        Submit
+      </Button>
+    </form>
   );
 }
 
 export default Address;
+

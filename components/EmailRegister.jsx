@@ -1,152 +1,141 @@
 "use client";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useState, useEffect } from "react";
-import { useUserAuth } from "@/utils/auth-context";
-import React from "react";
+
+import React, { useState } from "react";
 import Link from "next/link";
-function EmailRegister({
-  setLoginDone,
-  setLoginName,
-  setLoginEmail,
-  setLoginLastName,
-  setLoginPassword,
-}) {
-  const { user } = useUserAuth();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
-  const [prePassword, setPrePassword] = useState("");
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
+
+function EmailRegister({ setLoginDone, setLoginData }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    lastName: "",
+    password: "",
+    rePassword: "",
+  });
   const [passwordError, setPasswordError] = useState("");
-  const [eye, setEye] = useState(true);
-  const [reEnterPasswordEye, setReEnterPasswordEye] = useState(true);
-  const [samePasswordError, setSamePasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const SubmitHandler = (e) => {
     e.preventDefault();
-    if (prePassword === rePassword) {
+    if (formData.password === formData.rePassword) {
       const regex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-      if (regex.test(prePassword)) {
-        setPassword(prePassword);
-        try {
-          setSamePasswordError("");
-          setPasswordError("");
-          setLoginName(name);
-          setLoginEmail(email);
-          setLoginLastName(lastName);
-          setLoginPassword(prePassword);
-          setLoginDone(true);
-        } catch (error) {
-          console.error("Error registering user:", error);
-        }
+      if (regex.test(formData.password)) {
+        setPasswordError("");
+        setLoginData((prev) => ({
+          ...prev,
+          name: formData.name,
+          email: formData.email,
+          lastName: formData.lastName,
+          password: formData.password,
+        }));
+        setLoginDone(true);
       } else {
-        setSamePasswordError("");
         setPasswordError(
-          "Password must contain atleast one uppercase, one lowercase, one number and one special character"
+          "Password must contain at least one uppercase, one lowercase, one number and one special character"
         );
       }
-    } else setPasswordError(""), setSamePasswordError("Passwords do not match");
+    } else {
+      setPasswordError("Passwords do not match");
+    }
   };
-  useEffect(() => {
-    setName("");
-    setLastName("");
-    setEmail("");
-    setPrePassword("");
-    setRePassword("");
-  }, [user]);
-  return (
-    <div>
-      <form onSubmit={(e) => SubmitHandler(e)} className="text-black">
-        <div className="text-center flex flex-col justify-center items-center">
-          <p className="my-2 font-extrabold text-3xl">Enter your Details</p>
 
-          <div className="py-7 grid grid-cols-2 gap-8 w-5/6 items-center justify-center">
-            <input
-              type="text"
-              value={name}
-              onChange={(e)=>setName(e.target.value)}
-              placeholder="First Name"
-              className="border shadow-lg p-2"
-              required
-            />
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e)=>setLastName(e.target.value)}
-              placeholder="Last Name"
-              className="border shadow-lg p-2"
-              required
-            />
-            <input
-              type="email"
-              value={email}
-              onChange={(e)=>setEmail(e.target.value)}
-              placeholder="Enter Email"
-              className="border shadow-lg p-2 col-span-2"
-              required
-            />
-            <input
-              type={eye ? "password" : "text"}
-              value={prePassword}
-              onChange={(e)=>setPrePassword(e.target.value)}
-              minLength="8"
-              placeholder="Enter password"
-              className="border shadow-lg p-2 col-span-1"
-              required
-            />
-            <span onClick={() => setEye(!eye)}>
-              {eye ? <AiFillEyeInvisible /> : <AiFillEye />}
-            </span>
-            <input
-              type={reEnterPasswordEye ? "password" : "text"}
-              value={rePassword}
-              onChange={(e)=>setRePassword(e.target.value)}
-              minLength="8"
-              placeholder="Re-enter password"
-              className="border shadow-lg p-2 col-span-1"
-              required
-            />
-            <span onClick={() => setReEnterPasswordEye(!reEnterPasswordEye)}>
-              {reEnterPasswordEye ? <AiFillEyeInvisible /> : <AiFillEye />}
-            </span>
-            <p
-              className={
-                samePasswordError.length === 0
-                  ? "hidden"
-                  : "text-red-500 col-span-2"
-              }
-            >
-              {samePasswordError}
-            </p>
-            <p
-              className={
-                passwordError.length === 0
-                  ? "hidden"
-                  : "text-red-500 col-span-2"
-              }
-            >
-              {passwordError}
-            </p>
-          </div>
-          <div className="grid grid-cols-3 w-5/6 gap-8">
-            <button
-              type="submit"
-              className="p-1 text-white bg-black  hover:bg-black/30 hover:text-slate-800"
-            >
-              Next
-            </button>
-            <Link
-              href="./Account"
-              className="p-1 text-white bg-black  hover:bg-black/30 hover:text-slate-800"
-            >
-              Already have an account?
-            </Link>
-          </div>
+  return (
+    <form onSubmit={SubmitHandler} className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="name">First Name</Label>
+          <Input
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
         </div>
-      </form>
-    </div>
+        <div className="space-y-2">
+          <Label htmlFor="lastName">Last Name</Label>
+          <Input
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
+        <div className="relative">
+          <Input
+            id="password"
+            name="password"
+            type={showPassword ? "text" : "password"}
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="absolute right-2 top-1/2 -translate-y-1/2"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </Button>
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="rePassword">Re-enter Password</Label>
+        <div className="relative">
+          <Input
+            id="rePassword"
+            name="rePassword"
+            type={showRePassword ? "text" : "password"}
+            value={formData.rePassword}
+            onChange={handleChange}
+            required
+          />
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="absolute right-2 top-1/2 -translate-y-1/2"
+            onClick={() => setShowRePassword(!showRePassword)}
+          >
+            {showRePassword ? <EyeOffIcon /> : <EyeIcon />}
+          </Button>
+        </div>
+      </div>
+      {passwordError && <p className="text-red-500">{passwordError}</p>}
+      <div className="flex justify-between">
+        <Button type="submit">Next</Button>
+        <Button variant="outline" asChild>
+          <Link href="./Account">Already have an account?</Link>
+        </Button>
+      </div>
+    </form>
   );
 }
 
 export default EmailRegister;
+

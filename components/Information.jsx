@@ -4,14 +4,14 @@ import { useUserAuth } from "@/utils/auth-context";
 import { getUserData } from "@/service/getServices/page";
 import { formatPhoneNumber, formatPostalCode } from "./formated";
 import { updateUserData } from "@/service/postServices/page";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 function Information() {
-  const [edit, setEdit] = useState(false);
   const [name, setName] = useState("");
-  const [itemId, setItemId] = useState("");
-  const [userId, setUserId] = useState("");
   const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -39,7 +39,9 @@ function Information() {
       country: country,
       pincode: pincode,
     };
-    await updateUserData(user, data).then(() => {alert("User Information Updated")});
+    await updateUserData(user, data).then(() => {
+      alert("User Information Updated");
+    });
   };
 
   function loadItems() {
@@ -56,6 +58,7 @@ function Information() {
       loadItems();
     }
   }, [user]);
+
   useEffect(() => {
     console.log("items: ", items);
     if (items) {
@@ -72,131 +75,133 @@ function Information() {
   }, [items]);
 
   return (
-    <div className="max-w-screen-2xl mx-auto p-4 grid justify-center items-center bg-slate-50 text-center my-5">
-      <div className="flex right-0 justify-end">
-        <button
-          className="p-1 text-white bg-black hover:bg-black/30 hover:text-slate-800"
-          onClick={handleSignOut}
-        >
+    <div className="max-w-4xl mx-auto p-4 space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold">User Information</h1>
+        <Button variant="outline" onClick={handleSignOut}>
           Sign out
-        </button>
+        </Button>
       </div>
 
-      <p className="font-extrabold text-4xl m-8">User Information</p>
       {items && items !== null ? (
-        <>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 bg-white shadow-lg w-full p-5">
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">First Name:</label>
-                <input
-                  value={name}
-                  placeholder={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
+        <Card>
+          <CardHeader>
+            <CardTitle>Edit Your Information</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName">First Name</Label>
+                  <Input
+                    id="firstName"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="First Name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="lastName">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last Name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    value={items.email}
+                    readOnly
+                    className="bg-gray-100"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="mobileNumber">Mobile Number</Label>
+                  <Input
+                    id="mobileNumber"
+                    value={mobileNumber}
+                    onChange={(e) =>
+                      setMobileNumber(formatPhoneNumber(e.target.value))
+                    }
+                    placeholder="Mobile Number"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="streetNumber">Street Number</Label>
+                  <Input
+                    id="streetNumber"
+                    value={streetNumber}
+                    onChange={(e) => setStreetNumber(e.target.value)}
+                    placeholder="Street Number"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="unitNumber">Unit Number</Label>
+                  <Input
+                    id="unitNumber"
+                    value={unitNumber}
+                    onChange={(e) => setUnitNumber(e.target.value)}
+                    placeholder="Unit Number"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="city">City</Label>
+                  <Input
+                    id="city"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="City"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="state">Province</Label>
+                  <Input
+                    id="state"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                    placeholder="Province"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="country">Country</Label>
+                  <Input
+                    id="country"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    placeholder="Country"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="pincode">Pin Code</Label>
+                  <Input
+                    id="pincode"
+                    value={pincode}
+                    onChange={(e) => setPincode(formatPostalCode(e.target.value))}
+                    placeholder="Pin Code"
+                  />
+                </div>
               </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Last Name:</label>
-                <input
-                  value={lastName}
-                  placeholder={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Email:</label>
-                <input
-                  value={items.email}
-                  placeholder={items.email}
-                  readOnly
-                  className="p-1 w-full bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Mobile Number:</label>
-                <input
-                  value={mobileNumber}
-                  placeholder={mobileNumber}
-                  onChange={(e) =>
-                    setMobileNumber(formatPhoneNumber(e.target.value))
-                  }
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Street Number:</label>
-                <input
-                  value={streetNumber}
-                  placeholder={streetNumber}
-                  onChange={(e) => setStreetNumber(e.target.value)}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Unit Number:</label>
-                <input
-                  value={unitNumber}
-                  placeholder={unitNumber}
-                  onChange={(e) => setUnitNumber(e.target.value)}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">City:</label>
-                <input
-                  value={city}
-                  placeholder={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Province:</label>
-                <input
-                  value={state}
-                  placeholder={state}
-                  onChange={(e) => setState(e.target.value)}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Country:</label>
-                <input
-                  value={country}
-                  placeholder={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-              <div className="flex gap-2 p-1">
-                <label className="flex items-center">Pin Code:</label>
-                <input
-                  value={pincode}
-                  placeholder={pincode}
-                  onChange={(e) => setPincode(formatPostalCode(e.target.value))}
-                  className="p-1 bg-slate-100 rounded-xl"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col w-full items-center col-span-full">
-              <button
-                type="submit"
-                className="p-1 text-white bg-black hover:bg-black/30 hover:text-slate-800 w-1/2 mt-5"
-              >
-                Save
-              </button>
-            </div>
-          </form>
-        </>
+              <Button type="submit" className="w-full">
+                Save Changes
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
       ) : (
-        <div className="w-full flex justify-center items-center animate-pulse font-bold text-3xl">
-          Loading...
-        </div>
+        <Card>
+          <CardContent className="flex items-center justify-center h-64">
+            <div className="text-2xl font-semibold text-gray-500 animate-pulse">
+              Loading...
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
 }
 
 export default Information;
+
