@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📦 DealHives - E-Commerce Platform  
 
-## Getting Started
+🔗 **Live Demo:** [DealHives](https://deal-hives.vercel.app/)  
 
-First, run the development server:
+## 🚀 Overview  
+**DealHives** is a high-performance e-commerce platform designed for an optimized shopping experience. The application integrates real-time product data from Amazon using **Rapid API**, allowing users to browse and find the best deals effortlessly.  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🛠️ Key Features  
+- 🔍 **Real-Time Product Search** – Fetches live product data from Amazon using **Rapid API**  
+- 🔒 **Secure Authentication** – Implements **Firebase Authentication** for secure login and account management  
+- ⚡ **Fast & Responsive UI** – Developed with **Next.js** for optimal performance  
+- 🛒 **Seamless Shopping Experience** – Users can explore, compare, and find the best deals effortlessly  
+- 🔄 **Modern Web Technologies** – Built with a **REST API-driven architecture**  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack  
+- **Frontend:** Next.js, React, HTML5, CSS  
+- **Backend Services:** Firebase (Authentication & Database)  
+- **APIs:** Rapid API (Amazon Product Data)  
+- **Authentication:** Firebase Auth  
+- **Deployment:** Vercel  
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🚀 Installation & Setup  
+1. **Clone the repository**  
+   ```sh
+   git clone https://github.com/hunardeep720/dealHives.git
+   cd dealHives
+   ```
+2. **Install dependencies and Set up environment variables**
+   ```sh
+   npm install
+   npm run dev
